@@ -236,27 +236,30 @@ if(etop > mtop && etop < mbottom && eleft+2 < mright && eright-2 > mleft){enemy.
             var objectsJSON = "[";
             var enemiesJSON = "[";
             var lines = mapData.split("\n");
-            for (var r = 0; r < lines.length; r++) {
+            for (var r = 0; r < lines.length - 2; r++) {
                 for (var c = 0; c < lines[r].length; c++) {
                     var currChar = lines[r].charAt(c);
+
                     var dx = c * 16;
                     var dy = r * 16;
-                    if (currChar == "-") {
+
+
+                    if (currChar == "-") { // Air
                         continue;
-                    } else if (currChar == "#") {
-                        objectsJSON += "{\"sx\": 0, \"sy\": 18, \"sw\": 16, \"sh\": 16, \"dx\": " + dx + ", \"dy\": " + dy + ", \"dw\":16, \"dh\": 16, \"type\": \"brick\" }, ";
-                    } else if (currChar == "?") {
+                    } else if (currChar == "#") { // Brick
+                        objectsJSON += "{\"sx\": 0, \"sy\": 0, \"sw\": 16, \"sh\": 16, \"dx\": " + dx + ", \"dy\": " + dy + ", \"dw\":16, \"dh\": 16, \"type\": \"brick\" }, ";
+                    } else if (currChar == "?") { // Question Block
                         objectsJSON += "{\"sx\": 18, \"sy\": 0, \"sw\": 16, \"sh\": 16, \"dx\": " + dx + ", \"dy\": " + dy + ", \"dw\":16, \"dh\": 16, \"type\": \"questionmark\" }, ";
-                    } else if (currChar == "e") {
+                    } else if (currChar == "e") { // Enemy
                         enemiesJSON += "{\"currentSX\": 0, \"currentSY\": 0, \"currentSWidth\": 16, \"currentSHeight\": 16, \"currentDX\": " + dx + " , \"currentDY\": " + dy + " , \"currentDWidth\": 16, \"currentDHeight\": 16, \"type\": \"goomba\"}, ";
-                    } else if (currChar == "p") {
+                    } else if (currChar == "p") { // Left pipe
                     	if (lines[r-1].charAt(c) == "p") {
                     		// Not top of a pipe.
                         	objectsJSON += "{\"sx\": 173, \"sy\": 18, \"sw\": 16, \"sh\": 16, \"dx\": " + dx + ", \"dy\": " + dy + ", \"dw\":16, \"dh\": 16}, ";
                     	} else {
                         	objectsJSON += "{\"sx\": 173, \"sy\": 0, \"sw\": 16, \"sh\": 16, \"dx\": " + dx + ", \"dy\": " + dy + ", \"dw\":16, \"dh\": 16}, ";
                     	}
-                    } else if (currChar == "P") {
+                    } else if (currChar == "P") { // Right pipe
                     	if (lines[r - 1].charAt(c) == "P") {
                         	objectsJSON += "{\"sx\": 189, \"sy\": 18, \"sw\": 16, \"sh\": 16, \"dx\": " + dx + ", \"dy\": " + dy + ", \"dw\":16, \"dh\": 16}, ";
                     	} else {
@@ -265,13 +268,22 @@ if(etop > mtop && etop < mbottom && eleft+2 < mright && eright-2 > mleft){enemy.
                     }
                 }
             }
+
+            // Responsible for floor.
+            for (var c = 0; c < lines[lines.length - 2].length; c++) {
+            	var currChar = lines[lines.length - 2].charAt(c);
+            	if (currChar == "#") {
+            		objectsJSON += "{\"sx\": 0, \"sy\": 18, \"sw\": 16, \"sh\": 16, \"dx\": " + (c * 16) + ", \"dy\": " + ((lines.length - 2) * 16) + ", \"dw\":16, \"dh\": 16, \"type\": \"brick\" }, ";
+            	}
+            }
+
+
             objectsJSON = objectsJSON.slice(0, -2);
             objectsJSON += "]";
             enemiesJSON = enemiesJSON.slice(0, -2);
             enemiesJSON += "]";
 
             objectsJSON = JSON.parse(objectsJSON);
-            console.log(enemiesJSON);
             enemiesJSON = JSON.parse(enemiesJSON);
 
             //console.log("OBJECTS",json);
@@ -638,6 +650,11 @@ if(cf == 10){z.set({currentFrame : 1});}
         },
         die: function() {
             var z = this;
+            // TODO
+/*			var script = document.createElement("script");
+			script.src = "MarioJS/mario.js";
+			document.head.appendChild(script);*/
+
             window.location.reload();
         }
     });
