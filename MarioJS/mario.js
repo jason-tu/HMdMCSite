@@ -239,22 +239,29 @@ if(etop > mtop && etop < mbottom && eleft+2 < mright && eright-2 > mleft){enemy.
             for (var r = 0; r < lines.length; r++) {
                 for (var c = 0; c < lines[r].length; c++) {
                     var currChar = lines[r].charAt(c);
-                    var sx = 0;
-                    var sy = 0;
                     var dx = c * 16;
                     var dy = r * 16;
-                    var type = "\"brick\"";
                     if (currChar == "-") {
                         continue;
                     } else if (currChar == "#") {
-                        sy = 18;
-                        objectsJSON += "{\"sx\":" + sx + ", \"sy\": " + sy + ", \"sw\": 16, \"sh\": 16, \"dx\": " + dx + ", \"dy\": " + dy + ", \"dw\":16, \"dh\": 16, \"type\": " + type + " }, ";
+                        objectsJSON += "{\"sx\": 0, \"sy\": 18, \"sw\": 16, \"sh\": 16, \"dx\": " + dx + ", \"dy\": " + dy + ", \"dw\":16, \"dh\": 16, \"type\": \"brick\" }, ";
                     } else if (currChar == "?") {
-                        sx = 18;
-                        type = "\"questionmark\"";
-                        objectsJSON += "{\"sx\":" + sx + ", \"sy\": " + sy + ", \"sw\": 16, \"sh\": 16, \"dx\": " + dx + ", \"dy\": " + dy + ", \"dw\":16, \"dh\": 16, \"type\": " + type + " }, ";
+                        objectsJSON += "{\"sx\": 18, \"sy\": 0, \"sw\": 16, \"sh\": 16, \"dx\": " + dx + ", \"dy\": " + dy + ", \"dw\":16, \"dh\": 16, \"type\": \"questionmark\" }, ";
                     } else if (currChar == "e") {
                         enemiesJSON += "{\"currentSX\": 0, \"currentSY\": 0, \"currentSWidth\": 16, \"currentSHeight\": 16, \"currentDX\": " + dx + " , \"currentDY\": " + dy + " , \"currentDWidth\": 16, \"currentDHeight\": 16, \"type\": \"goomba\"}, ";
+                    } else if (currChar == "p") {
+                    	if (lines[r-1].charAt(c) == "p") {
+                    		// Not top of a pipe.
+                        	objectsJSON += "{\"sx\": 173, \"sy\": 18, \"sw\": 16, \"sh\": 16, \"dx\": " + dx + ", \"dy\": " + dy + ", \"dw\":16, \"dh\": 16}, ";
+                    	} else {
+                        	objectsJSON += "{\"sx\": 173, \"sy\": 0, \"sw\": 16, \"sh\": 16, \"dx\": " + dx + ", \"dy\": " + dy + ", \"dw\":16, \"dh\": 16}, ";
+                    	}
+                    } else if (currChar == "P") {
+                    	if (lines[r - 1].charAt(c) == "P") {
+                        	objectsJSON += "{\"sx\": 189, \"sy\": 18, \"sw\": 16, \"sh\": 16, \"dx\": " + dx + ", \"dy\": " + dy + ", \"dw\":16, \"dh\": 16}, ";
+                    	} else {
+                        	objectsJSON += "{\"sx\": 189, \"sy\": 0, \"sw\": 16, \"sh\": 16, \"dx\": " + dx + ", \"dy\": " + dy + ", \"dw\":16, \"dh\": 16}, ";
+                    	}
                     }
                 }
             }
