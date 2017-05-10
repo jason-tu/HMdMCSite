@@ -1859,6 +1859,44 @@
                     <div id="divButtons2">
                         <button class="btn btn-primary btn-block" disabled="true" id="samplingMapsButton" onclick="samplesGenerated()" type="button">Sampling Maps</button>
                     </div>
+
+                    <fieldset class="scheduler-border" id="generateMaps">
+                        <legend class="scheduler-border">Maps</legend>
+
+                        <div class="input-group">
+                            <span class="input-group-addon">Number of maps to generate</span>
+                            <input aria-describedby="height" class="form-control" id="numMaps" type="text" value="1">
+                        </div>
+                        <br>
+
+                        <div>
+                            <button class="btn btn-primary btn-block" id="genMultiple" onclick="genMultipleHelp()" type="button">Train and Sample maps</button>
+                        </div>
+                        <script>
+                            var numMaps;
+                            var numGenerated;
+
+                            // Note: There needs to be some sort of delay between these steps for some reason.
+                            function genMultipleHelp() {
+                                numMaps = document.getElementById("numMaps").value;
+                                numGenerated = 0;
+                                genMultiple();
+                            }
+                            function genMultiple() {
+                                samplingReady();
+                                window.setTimeout(genMultiple2, 1000);
+                            }
+                            function genMultiple2() {
+                                if (numGenerated++ == numMaps) {
+                                    // Stop.
+                                } else {
+                                    samplesGenerated();
+                                    window.setTimeout(genMultiple(), 1000);
+                                }
+                            }
+                        </script>
+
+                    </fieldset>
                 </div>
 
 

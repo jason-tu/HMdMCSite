@@ -190,6 +190,16 @@ height: 200px;
 	float: left;
 }
 
+#generateMaps{
+
+	margin-top:10px;
+	height: 150px;
+	width: 1222px;
+	float: left;
+	margin-left:40px;
+
+}
+
 #divButtons{
 	margin-top:10px;
 	margin-left:40px;
