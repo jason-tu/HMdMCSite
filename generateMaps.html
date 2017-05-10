@@ -973,8 +973,6 @@
                     }
                 }
 
-
-
             }
 
             //createNewParagraph(tileTypes,"textOutputTab");
@@ -1054,16 +1052,12 @@
                 }
 
 
-
                 GenerateTopLevel();
-
-
 
 
             }
 
         }
-
 
         function createNewParagraph(string, element) {
             var text = string;
@@ -1174,20 +1168,7 @@
             mapDataSize++;
             mapData += string + "\n";
 
-
             if (mapDataSize == mapHeight) {
-
-                /*              var lines = mapData.split("\n");
-                                for (var r = 0; r < lines.length; r++) {
-                                    for (var c = 0; c < lines[r].length; c++) {
-                                        var currChar = lines[r].charAt(c);
-                                        if (currChar != "-") {
-                                            //MarioJS.js.levels.11.level.putQBlock(r, c, null);
-                                        }
-                                    }
-                                }*/
-
-
                 var oneone = Mario.oneone = function() {
                     //The things that need to be passed in are basically just dependent on what
                     //tileset we're in, so it makes more sense to just make one variable for that, so
@@ -1256,18 +1237,37 @@
                         ]
                     });
 
-                    ground = [
-                        [0, 69],
-                        [71, 86],
-                        [89, 153],
-                        [155, 212]
-                    ];
                     player.pos[0] = level.playerPos[0];
                     player.pos[1] = level.playerPos[1];
                     vX = 0;
 
                     //interactable terrain
                     var lines = mapData.split("\n");
+
+                    // Checking initial viability.
+                    // Pretty much just seeing if the Player will be killed before they move.
+                    // We need to check a larger region for enemies since they move
+                    for (var r = 0; r < lines.length; r++) {
+                        for (var c = 0; c < 20; c++) {
+                            if (lines[r].charAt(c) == "e") {
+                                lines[r] = lines[r].substring(0, c) + "-" + lines[r].substring(c + 1, lines[r].length);
+                            }
+                        }
+                    }
+                    // Just making sure Mario doesn't suffocate
+                    for (var r = 12; r < 9; r--) {
+                        for (var c = 3; c < 5; c++) {
+                            var currChar = lines[r].charAt(c);
+                            if (currChar == "#" || currChar == "B") {
+                                lines[r] = lines[r].substring(0, c) + "-" + lines[r].substring(c + 1, lines[r].length);
+                            } else if (currChar == "p") {
+                                lines[r] = lines[r].substring(0, c) + "--" + lines[r].substring(c + 2, lines[r].length);
+                            }
+                        }
+                    }
+
+
+                    // Adding bricks, enemies, etc.
                     for (var r = 0; r < lines.length - 2; r++) {
                         for (var c = 0; c < lines[r].length; c++) {
                             var currChar = lines[r].charAt(c);
@@ -1312,11 +1312,11 @@
                         level.putFloor(loc[0],loc[1]);
                     });
 
+
                     music.underground.pause();
                     // music.overworld.currentTime = 0;
                     music.overworld.play();
 
-                    level.putQBlock(5, 9, new Mario.Star([5 * 16, 4 * 16]));
 
                 };
 
