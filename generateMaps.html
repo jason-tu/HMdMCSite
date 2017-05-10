@@ -1169,7 +1169,6 @@
 
         var mapData;
         var mapDataSize = 0;
-        var level1;
 
         function createNewGame(string) {
             mapDataSize++;
@@ -1291,7 +1290,6 @@
                                 // Two Goombas just spawn at (3, 2) and (7, 2) no matter what.
                                 // I even switched the entire Mario game for a new one...
                                 if (r != 0 || r != 00 && (c != 3 || c != 7)) {
-                                    console.log(c + " " + r + 2);
                                     level.putGoomba(c, r + 2);
                                 }
                             }
@@ -1300,7 +1298,7 @@
 
                     // Floor
                     var floors = new Array();
-                    var indivFloor = new Array(0);
+                    var indivFloor = new Array();
                     for (var c = 0; c < lines[lines.length - 2].length; c++) {
                         if (indivFloor.length == 0 && lines[lines.length - 2].charAt(c) == "#") {
                             indivFloor.push(c);
@@ -1317,6 +1315,9 @@
                     music.underground.pause();
                     // music.overworld.currentTime = 0;
                     music.overworld.play();
+
+                    level.putQBlock(5, 9, new Mario.Star([5 * 16, 4 * 16]));
+
                 };
 
 
@@ -1325,9 +1326,19 @@
                     script.src = "js/game.js";
                     document.head.appendChild(script);
 
-                    document.getElementById("playMario").onclick = function() {};
+                    document.getElementById("playMario").onclick = function() {
+                    };
                 }
+                document.getElementById("playMario").style.cursor = "default";
 
+                document.getElementById("options").addEventListener("click", pauseMario, false);
+                document.getElementById("textOutput").addEventListener("click", pauseMario, false);
+                document.getElementById("graphicOutput").addEventListener("click", pauseMario, false);
+
+                function pauseMario() {
+                    // TODO: Mute ALL sounds.
+                    music.overworld.pause();
+                }
             }
         }
 
@@ -1339,7 +1350,6 @@
             } else {
                 x.disabled = true;
             }
-
         }
 
         function samplingReady() {
@@ -1433,8 +1443,6 @@
             mapWidth = document.getElementById("width").value;
 
             fileContent = [];
-
-
 
             if (userYourOwnMapsRadio.checked == false) {
 
@@ -1662,15 +1670,15 @@
         <div id="container">
             <ul class="nav nav-tabs">
                 <li class="active">
-                    <a data-toggle="tab" href="#home">Options</a>
+                    <a id="options" data-toggle="tab" href="#home">Options</a>
                 </li>
 
                 <li>
-                    <a data-toggle="tab" href="#menu1">Text Output</a>
+                    <a id="textOutput" data-toggle="tab" href="#menu1">Text Output</a>
                 </li>
 
                 <li>
-                    <a data-toggle="tab" href="#menu2">Graphic Output</a>
+                    <a id="graphicOutput" data-toggle="tab" href="#menu2">Graphic Output</a>
                 </li>
 
                 <li>
