@@ -1248,14 +1248,14 @@
                     // Pretty much just seeing if the Player will be killed before they move.
                     // We need to check a larger region for enemies since they move
                     for (var r = 0; r < lines.length; r++) {
-                        for (var c = 0; c < 20; c++) {
+                        for (var c = 0; c < 17; c++) {
                             if (lines[r].charAt(c) == "e") {
                                 lines[r] = lines[r].substring(0, c) + "-" + lines[r].substring(c + 1, lines[r].length);
                             }
                         }
                     }
                     // Just making sure Mario doesn't suffocate
-                    for (var r = 12; r < 9; r--) {
+                    for (var r = 9; r < 12; r++) {
                         for (var c = 3; c < 5; c++) {
                             var currChar = lines[r].charAt(c);
                             if (currChar == "#" || currChar == "B") {
@@ -1265,7 +1265,13 @@
                             }
                         }
                     }
-
+                    // Making sure there's a floor beneath Mario
+                    for (var c =3; c < 5; c++) {
+                        var currChar = lines[lines.length - 2].charAt(c);
+                        if (currChar == "-") {
+                            lines[lines.length - 2] = lines[lines.length - 2].substring(0, c) + "#" + lines[lines.length - 2].substring(c + 1, lines[lines.length - 2].length);
+                        }
+                    }
 
                     // Adding bricks, enemies, etc.
                     for (var r = 0; r < lines.length - 2; r++) {
