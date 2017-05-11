@@ -1167,7 +1167,7 @@
         function createNewGame(string) {
             mapDataSize++;
             mapData += string + "\n";
-            console.log(mapDataSize + " " + mapHeight);
+
             if (mapDataSize == mapHeight) {
 
                 // Clearing mapData so user can always be playing the most recently generated map
@@ -1317,16 +1317,21 @@
                     for (var c = 0; c < lines[lines.length - 2].length; c++) {
                         if (indivFloor.length == 0 && lines[lines.length - 2].charAt(c) == "#") {
                             indivFloor.push(c);
-                        } else if (lines[lines.length - 2].charAt(c) == "-") {
+                        } else if (lines[lines.length - 2].charAt(c) == "-" && indivFloor.length == 1) {
                             indivFloor.push(c - 1);
                             floors.push(indivFloor);
                             indivFloor = new Array();
                         }
                     }
+                    indivFloor.push(lines[lines.length - 2].length);
+                    floors.push(indivFloor);
+
                     floors.forEach(function(loc) {
                         level.putFloor(loc[0],loc[1]);
                     });
 
+                    // Flagpole makes me feel satisfied. 7 is arbitrary.
+                    level.putFlagpole(lines[lines.length - 2].length - 7);
 
                     music.underground.pause();
                     // music.overworld.currentTime = 0;
