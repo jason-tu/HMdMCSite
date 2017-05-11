@@ -1262,6 +1262,8 @@
                                 lines[r] = lines[r].substring(0, c) + "-" + lines[r].substring(c + 1, lines[r].length);
                             } else if (currChar == "p") {
                                 lines[r] = lines[r].substring(0, c) + "--" + lines[r].substring(c + 2, lines[r].length);
+                            } else if (currChar == "P") {
+                                lines[r] = lines[r].substring(0, c - 2) + "--" + lines[r].substring(c, lines[r].length);
                             }
                         }
                     }
@@ -1324,6 +1326,8 @@
                     music.overworld.play();
 
 
+                    mapDataSize = 0;
+                    mapData = "";
                 };
 
 
@@ -1331,6 +1335,10 @@
                     var script = document.createElement("script");
                     script.src = "js/game.js";
                     document.head.appendChild(script);
+
+                    Mario.oneone();
+
+                    document.getElementById("gameOutputTab").innerHTML = "";
 
                     document.getElementById("playMario").onclick = function() {
                     };
@@ -1856,6 +1864,44 @@
                         </fieldset>
                     </fieldset>
 
+                        <fieldset class="scheduler-border" id="generateMaps">
+                            <legend class="scheduler-border">Maps</legend>
+
+                            <div class="input-group">
+                                <span class="input-group-addon">Number of maps to generate</span>
+                                <input aria-describedby="height" class="form-control" id="numMaps" type="text" value="1">
+                            </div>
+                            <br>
+
+                            <div>
+                                <button class="btn btn-primary btn-block" id="genMultiple" onclick="genMultipleHelp()" type="button">Train and Sample maps</button>
+                            </div>
+                            <script>
+                                var numMaps;
+                                var numGenerated;
+
+                                // Note: There needs to be some sort of delay between these steps for some reason.
+                                function genMultipleHelp() {
+                                    numMaps = document.getElementById("numMaps").value;
+                                    numGenerated = 0;
+                                    genMultiple();
+                                }
+                                function genMultiple() {
+                                    samplingReady();
+                                    window.setTimeout(genMultiple2, 1000);
+                                }
+                                function genMultiple2() {
+                                    if (numGenerated++ == numMaps) {
+                                        // Stop.
+                                    } else {
+                                        samplesGenerated();
+                                        window.setTimeout(genMultiple(), 1000);
+                                    }
+                                }
+                            </script>
+
+                        </fieldset>
+
 
                     <div id="divButtons">
                         <button class="btn btn-primary btn-block" id="trainingMapsButton" onclick="samplingReady()" type="button">Training Maps</button>
@@ -1865,44 +1911,6 @@
                     <div id="divButtons2">
                         <button class="btn btn-primary btn-block" disabled="true" id="samplingMapsButton" onclick="samplesGenerated()" type="button">Sampling Maps</button>
                     </div>
-
-                    <fieldset class="scheduler-border" id="generateMaps">
-                        <legend class="scheduler-border">Maps</legend>
-
-                        <div class="input-group">
-                            <span class="input-group-addon">Number of maps to generate</span>
-                            <input aria-describedby="height" class="form-control" id="numMaps" type="text" value="1">
-                        </div>
-                        <br>
-
-                        <div>
-                            <button class="btn btn-primary btn-block" id="genMultiple" onclick="genMultipleHelp()" type="button">Train and Sample maps</button>
-                        </div>
-                        <script>
-                            var numMaps;
-                            var numGenerated;
-
-                            // Note: There needs to be some sort of delay between these steps for some reason.
-                            function genMultipleHelp() {
-                                numMaps = document.getElementById("numMaps").value;
-                                numGenerated = 0;
-                                genMultiple();
-                            }
-                            function genMultiple() {
-                                samplingReady();
-                                window.setTimeout(genMultiple2, 1000);
-                            }
-                            function genMultiple2() {
-                                if (numGenerated++ == numMaps) {
-                                    // Stop.
-                                } else {
-                                    samplesGenerated();
-                                    window.setTimeout(genMultiple(), 1000);
-                                }
-                            }
-                        </script>
-
-                    </fieldset>
                 </div>
 
 
@@ -1926,11 +1934,8 @@
             </div>
         </div>
     </section>
-
-
     <footer>
         Drexel 2016
     </footer>
 </body>
-
 </html>

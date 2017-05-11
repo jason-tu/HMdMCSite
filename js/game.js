@@ -51,6 +51,7 @@ var music;
 //initialize
 var lastTime;
 function init() {
+  console.log("initGame");
   music = {
     overworld: new Audio('sounds/aboveground_bgm.ogg'),
     underground: new Audio('sounds/underground_bgm.ogg'),
