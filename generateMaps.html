@@ -1167,21 +1167,19 @@
         function createNewGame(string) {
             mapDataSize++;
             mapData += string + "\n";
-
+            console.log(mapDataSize + " " + mapHeight);
             if (mapDataSize == mapHeight) {
+
+                // Clearing mapData so user can always be playing the most recently generated map
+                // (as opposed to the first generated map)
+                oldMapData = JSON.parse(JSON.stringify(mapData))
+                mapData = "";
+                mapDataSize = 0;
+
                 var oneone = Mario.oneone = function() {
                     //The things that need to be passed in are basically just dependent on what
                     //tileset we're in, so it makes more sense to just make one variable for that, so
                     //TODO: put as much of this in the Level object definition as possible.
-                    if (mapData.length != 0) {
-                        console.log("oldMapData: " + oldMapData);
-                        oldMapData = "";
-                        oldMapData = JSON.parse(JSON.stringify(mapData))
-                        console.log("copiedOldMapData" + oldMapData);
-                        mapData = "";
-                        console.log(oldMapData + "\n" + mapData + "\n" + mapDataSize + " " + mapHeight);
-                        mapDataSize = 0;
-                    }
                     level = new Mario.Level({
                         playerPos: [56, 192],
                         loader: Mario.oneone,
@@ -1933,7 +1931,14 @@
 
                 <div class="tab-pane fade" id="menu3">
                     <div id="gameOutputTab">
-
+                    <p> Controls: <br>
+                        <ul>
+                            <li>Up: W / Up Arrow / Space</li>
+                            <li>Left: A / Left Arrow</li>
+                            <li>Down: S / Down Arrow</li>
+                            <li>Right: D / Right Arrow</li>
+                            <li>Run: Left Shift / Z</li>
+                        </ul>
                     </div>
                 </div>
             </div>
