@@ -24,6 +24,10 @@ var player = new Mario.Player([0,0]);
 canvas.width = 762;
 canvas.height = 720;
 ctx.scale(3,3);
+canvas.style.padding = 0;
+canvas.style.margin = "auto";
+canvas.style.display = "block";
+canvas.style.width = "800px";
 document.getElementById("gameOutputTab").appendChild(canvas);
 //document.body.appendChild(canvas);
 
