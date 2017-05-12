@@ -546,9 +546,6 @@
             NumberTilesWithEachMatrix = [];
             start = 0;
 
-            var samplingMapsButton = document.getElementById("samplingMapsButton");
-            samplingMapsButton.disabled = true;
-
         }
 
         function SetProbsForOnlyLowLevel(WhichDepMat) {
@@ -1080,99 +1077,340 @@
             document.getElementById(element).appendChild(newParagraph);
         }
 
+        var imageX = 0;
+        var imageY = 0;
+        var canvas;
+        var canvasCTX;
+        var marioImages = new Array();
+        var loderunnerImages = new Array();
+        var kidIcarusImages = new Array();
+        loadMarioImages();
+        loadLoderunnerImages();
+        loadKidIcarusImages();
+        var startTime;
         function createNewImage(game, tile) {
+            if (imageX == 0 && imageY == 0) {
+                console.log("New canvas");
+                startTime = Date.now();
+                canvas = document.createElement("canvas");
+                canvasCTX = canvas.getContext("2d");
+                canvas.width = mapWidth * 16;
+                canvas.height = mapHeight * 16;
+            } else if (imageX == mapWidth && imageY + 1 == mapHeight) {
+                console.log("Adding canvas");
+                document.getElementById("graphicOutputTab").appendChild(canvas);
+                imageX = 0;
+                imageY = 0;
+                console.log(Date.now() - startTime);
+                return;
+            }
 
             var img = document.createElement("img");
             if (tile == "space") {
-                var newParagraph = document.createElement('div');
-                newParagraph.id = "space";
-                document.getElementById("graphicOutputTab").appendChild(newParagraph);
+                console.log("asdfasdf");
+                imageX = 0;
+                imageY++;
             }
 
             if (game == "mario") {
 
 
                 if (tile == "#") {
-                    img.src = "Images_Mario/G.png";
+                    img = marioImages[0];
                 } else if (tile == "p") {
-                    img.src = "Images_Mario/P.png";
+                    img = marioImages[1];
                 } else if (tile == "P") {
-                    img.src = "Images_Mario/P2.png";
+                    img = marioImages[2];
                 } else if (tile == "B") {
-                    img.src = "Images_Mario/B.png";
+                    img = marioImages[3];
                 } else if (tile == "?") {
-                    img.src = "Images_Mario/B2.png";
+                    img = marioImages[4];
                 } else if (tile == "#2") {
-                    img.src = "Images_Mario/G2.png";
+                    img = marioImages[5];
                 } else if (tile == "-") {
-                    img.src = "Images_Mario/E.png";
+                    img = marioImages[6];
                 } else if (tile == "PT") {
-                    img.src = "Images_Mario/PT.png";
+                    img = marioImages[7];
                 } else if (tile == "PT2") {
-                    img.src = "Images_Mario/PT2.png";
+                    img = marioImages[8];
                 } else if (tile == "c") {
-                    img.src = "Images_Mario/C.png";
+                    img = marioImages[9];
                 } else if (tile == "EF") {
-                    img.src = "Images_Mario/EF.png";
+                    img = marioImages[10];
                 } else if (tile == "EA") {
-                    img.src = "Images_Mario/EA.png";
+                    img = marioImages[11];
                 } else if (tile == "EF2") {
-                    img.src = "Images_Mario/EF2.png";
+                    img = marioImages[12];
                 } else {
-                    img.src = "Images_Mario/E.png";
+                    img = marioImages[13];
                 }
-
+                canvasCTX.drawImage(img, imageX * 16, imageY * 16);
+                imageX++;
             } else if (game == "loderunner") {
 
 
                 if (tile == "b") {
-                    img.src = "Images_Loderunner/F.png";
+                    img = loderunnerImages[0];
                 } else if (tile == "#") {
-                    img.src = "Images_Loderunner/L.png";
+                    img = loderunnerImages[1];
                 } else if (tile == "G") {
-                    img.src = "Images_Loderunner/G.png";
+                    img = loderunnerImages[2];
                 } else if (tile == "E") {
-                    img.src = "Images_Loderunner/EN.png";
+                    img = loderunnerImages[3];
                 } else if (tile == "-") {
-                    img.src = "Images_Loderunner/R.png";
+                    img = loderunnerImages[4];
                 } else if (tile == ".") {
-                    img.src = "Images_Loderunner/E.png";
+                    img = loderunnerImages[5];
                 } else if (tile == "B") {
-                    img.src = "Images_Loderunner/B.png";
+                    img = loderunnerImages[6];
                 } else {
-                    img.src = "Images_Loderunner/E.png";
+                    img = loderunnerImages[7];
                 }
+                canvas.getContext("2d").drawImage(img, imageX * 16, imageY * 16);
+                imageX++;
+
             } else if (game == "kidIcarus") {
                 if (tile == "D") {
-                    img.src = "Images_Kid_Icarus/D.png";
+                    img = kidIcarusImages[0];
                 } else if (tile == "D2") {
-                    img.src = "Images_Kid_Icarus/D2.png";
+                    img = kidIcarusImages[1];
                 } else if (tile == "DB") {
-                    img.src = "Images_Kid_Icarus/DB.png";
+                    img = kidIcarusImages[2];
                 } else if (tile == "DB2") {
-                    img.src = "Images_Kid_Icarus/DB2.png";
+                    img = kidIcarusImages[3];
                 } else if (tile == "DT") {
-                    img.src = "Images_Kid_Icarus/DT.png";
+                    img = kidIcarusImages[4];
                 } else if (tile == "DT2") {
-                    img.src = "Images_Kid_Icarus/DT2.png";
+                    img = kidIcarusImages[5];
                 } else if (tile == "-") {
-                    img.src = "Images_Kid_Icarus/E.png";
+                    img = kidIcarusImages[6];
                 } else if (tile == "#") {
-                    img.src = "Images_Kid_Icarus/F.png";
+                    img = kidIcarusImages[7];
                 } else if (tile == "F2") {
-                    img.src = "Images_Kid_Icarus/F2.png";
+                    img = kidIcarusImages[8];
                 } else if (tile == "F3") {
-                    img.src = "Images_Kid_Icarus/F3.png";
+                    img = kidIcarusImages[9];
                 } else if (tile == "T") {
-                    img.src = "Images_Kid_Icarus/P.png";
+                    img = kidIcarusImages[10];
                 } else {
-                    img.src = "Images_Kid_Icarus/E.png";
+                    img = kidIcarusImages[11];
                 }
+                canvas.getContext("2d").drawImage(img, imageX * 16, imageY * 16);
+                imageX++;
+
             }
 
-            img.id = "picture";
-            var foo = document.getElementById("graphicOutputTab");
-            foo.appendChild(img);
+        }
+
+        function loadMarioImages() {
+
+            var img1 = new Image();
+            img1.src = "Images_Mario/G.png";
+            img1.onload = function() {
+                marioImages[0] = img1;
+            }
+
+            var img2 = new Image();
+            img2.src = "Images_Mario/P.png";
+            img2.onload = function() {
+                marioImages[1] = img2;
+            }
+
+            var img3 = new Image();
+            img3.src = "Images_Mario/P2.png";
+            img3.onload = function() {
+                marioImages[2] = img3;
+            }
+
+            var img4 = new Image();
+            img4.src = "Images_Mario/B.png";
+            img4.onload = function() {
+                marioImages[3] = img4;
+            }
+
+            var img5 = new Image();
+            img5.src = "Images_Mario/B2.png";
+            img5.onload = function() {
+                marioImages[4] = img5;
+            }
+
+            var img6 = new Image();
+            img6.src = "Images_Mario/G2.png";
+            img6.onload = function() {
+                marioImages[5] = img6;
+            }
+
+            var img7 = new Image();
+            img7.src = "Images_Mario/E.png";
+            img7.onload = function() {
+                marioImages[6] = img7;
+            }
+
+            var img8 = new Image();
+            img8.src = "Images_Mario/PT.png";
+            img8.onload = function() {
+                marioImages[7] = img8;
+            }
+
+            var img9 = new Image();
+            img9.src = "Images_Mario/PT2.png";
+            img9.onload = function() {
+                marioImages[8] = img9;
+            }
+
+            var img10 = new Image();
+            img10.src = "Images_Mario/C.png";
+            img10.onload = function() {
+                marioImages[9] = img10;
+            }
+
+            var img11 = new Image();
+            img11.src = "Images_Mario/EF.png";
+            img11.onload = function() {
+                marioImages[10] = img11;
+            }
+
+            var img12 = new Image();
+            img12.src = "Images_Mario/EA.png";
+            img12.onload = function() {
+                marioImages[11] = img12;
+            }
+
+            var img13 = new Image();
+            img13.src = "Images_Mario/EF2.png";
+            img13.onload = function() {
+                marioImages[12] = img13;
+            }
+
+            var img14 = new Image();
+            img14.src = "Images_Mario/E.png";
+            img14.onload = function() {
+                marioImages[13] = img14;
+            }
+        }
+
+        function loadLoderunnerImages() {
+            var img1 = new Image();
+            img1.src = "Images_Loderunner/F.png";
+            img1.onload = function() {
+                loderunnerImages[0] = img1;
+            }
+
+            var img2 = new Image();
+            img2.src = "Images_Loderunner/L.png";
+            img2.onload = function() {
+                loderunnerImages[1] = img2;
+            }
+
+            var img3 = new Image();
+            img3.src = "Images_Loderunner/G.png";
+            img3.onload = function() {
+                loderunnerImages[2] = img3;
+            }
+
+            var img4 = new Image();
+            img4.src = "Images_Loderunner/EN.png";
+            img4.onload = function() {
+                loderunnerImages[3] = img4;
+            }
+
+            var img5 = new Image();
+            img5.src = "Images_Loderunner/R.png";
+            img5.onload = function() {
+                loderunnerImages[4] = img5;
+            }
+
+            var img6 = new Image();
+            img6.src = "Images_Loderunner/E.png";
+            img6.onload = function() {
+                loderunnerImages[5] = img6;
+            }
+
+            var img7 = new Image();
+            img7.src = "Images_Loderunner/B.png";
+            img7.onload = function() {
+                loderunnerImages[6] = img7;
+            }
+
+            var img8 = new Image();
+            img8.src = "Images_Loderunner/E.png";
+            img8.onload = function() {
+                loderunnerImages[7] = img8;
+            }
+        }
+
+        function loadKidIcarusImages() {
+            var img1 = new Image();
+            img1.src = "Images_Kid_Icarus/D.png";
+            img1.onload = function() {
+                kidIcarusImages[0] = img1;
+            }
+            var img2 = new Image();
+            img2.src = "Images_Kid_Icarus/D2.png";
+            img2.onload = function() {
+                kidIcarusImages[1] = img2;
+
+            }
+            var img3 = new Image();
+            img3.src = "Images_Kid_Icarus/DB.png";
+            img3.onload = function() {
+                kidIcarusImages[2] = img3;
+
+            }
+            var img4 = new Image();
+            img4.src = "Images_Kid_Icarus/DB2.png";
+            img4.onload = function() {
+                kidIcarusImages[3] = img4;
+
+            }
+            var img5 = new Image();
+            img5.src = "Images_Kid_Icarus/DT.png";
+            img5.onload = function() {
+                kidIcarusImages[4] = img5;
+
+            }
+            var img6 = new Image();
+            img6.src = "Images_Kid_Icarus/DT2.png";
+            img6.onload = function() {
+                kidIcarusImages[5] = img6;
+
+            }
+            var img7 = new Image();
+            img7.src = "Images_Kid_Icarus/E.png";
+            img7.onload = function() {
+                kidIcarusImages[6] = img7;
+
+            }
+            var img8 = new Image();
+            img8.src = "Images_Kid_Icarus/F.png";
+            img8.onload = function() {
+                kidIcarusImages[7] = img8;
+
+            }
+            var img9 = new Image();
+            img9.src = "Images_Kid_Icarus/F2.png";
+            img9.onload = function() {
+                kidIcarusImages[8] = img19
+
+            }
+            var img10 = new Image();
+            img10.src = "Images_Kid_Icarus/F3.png";
+            img10.onload = function() {
+                kidIcarusImages[9] = img10;
+
+            }
+            var img11 = new Image();
+            img11.src = "Images_Kid_Icarus/P.png";
+            img11.onload = function() {
+                kidIcarusImages[10] = img11;
+
+            }
+            var img12 = new Image();
+            img12.src = "Images_Kid_Icarus/E.png";
+            img12.onload = function() {
+                kidIcarusImages[11] = img12;
+
+            }
         }
 
         var mapData = "";
@@ -1439,8 +1677,7 @@
             if (ready) {
                 var file = document.getElementById("fileinput").files[0];
                 if (file && userYourOwnMapsRadio.checked == true || userYourOwnMapsRadio.checked == false) {
-                    var samplingMapsButton = document.getElementById("samplingMapsButton");
-                    samplingMapsButton.disabled = false;
+
                     MdMCExperiments();
                 } else {
                     alert("Please choose Training Maps!");
@@ -1733,11 +1970,11 @@
                             <div class="col-3">
                                 <fieldset class="scheduler-border" id="chooseAGame">
                                     <legend class="scheduler-border">Choose a Game</legend> <select class="form-control" id="formChooseAGame">
-                                        <option value="superMarioBros">
+                                        <option value="superMarioBros" onclick="test1()">
                                             Super Mario Bros
                                         </option>
 
-                                        <option value="loderunner">
+                                        <option value="loderunner" onclick="test2()">
                                             Loderunner
                                         </option>
 
@@ -1925,34 +2162,24 @@
 
                                     // Note: There needs to be some sort of delay between these steps for some reason.
                                     function genMultipleHelp() {
-                                    numMaps = document.getElementById("numMaps").value;
-                                    numGenerated = 0;
-                                    genMultiple();
+                                        numMaps = document.getElementById("numMaps").value;
+                                        numGenerated = 0;
+                                        genMultiple();
                                     }
                                     function genMultiple() {
-                                    samplingReady();
-                                    window.setTimeout(genMultiple2, 1000);
+                                        samplingReady();
+                                        window.setTimeout(genMultiple2, 1000);
                                     }
                                     function genMultiple2() {
-                                    if (numGenerated++ == numMaps) {
-                                        // Stop.
-                                    } else {
-                                        samplesGenerated();
-                                        window.setTimeout(genMultiple(), 1000);
-                                    }
+                                        if (numGenerated++ == numMaps) {
+                                            // Stop.
+                                        } else {
+                                            samplesGenerated();
+                                            window.setTimeout(genMultiple(), 1000);
+                                        }
                                     }
                                     </script>
                                 </fieldset>
-
-
-                                <div id="divButtons">
-                                    <button class="btn btn-primary btn-block" id="trainingMapsButton" onclick="samplingReady()" type="button">Training Maps</button>
-                                </div>
-
-
-                                <div id="divButtons2">
-                                    <button class="btn btn-primary btn-block" disabled="true" id="samplingMapsButton" onclick="samplesGenerated()" type="button">Sampling Maps</button>
-                                </div>
                             </div>
                         </div>
                     </div>
