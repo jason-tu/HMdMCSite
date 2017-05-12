@@ -1,14 +1,11 @@
 <!DOCTYPE html>
 
 <html>
-
 <head>
     <meta charset="utf-8">
     <meta content="IE=edge" http-equiv="X-UA-Compatible">
-    <meta content="width=device-width, initial-scale=1" name="viewport">
-    <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <!-- layout style -->
+    <meta content="width=device-width, initial-scale=1" name="viewport"><!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet"><!-- layout style -->
     <link href="mystyle.css" rel="stylesheet" type="text/css">
     <script src="js/jquery.min.js">
     </script>
@@ -16,33 +13,50 @@
     </script>
     <script src="http://code.jquery.com/jquery-2.0.0.min.js" type="text/javascript">
     </script>
-
-
-    <script type="text/javascript" src="js/util.js"></script>
-    <script type="text/javascript" src="js/input.js"></script>
-    <script type="text/javascript" src="js/resources.js"></script>
-    <script type="text/javascript" src="js/sprite.js"></script>
-    <script type="text/javascript" src="js/entity.js"></script>
-    <script type="text/javascript" src="js/pipe.js"></script>
-    <script type="text/javascript" src="js/mushroom.js"></script>
-    <script type="text/javascript" src="js/fireflower.js"></script>
-    <script type="text/javascript" src="js/star.js"></script>
-    <script type="text/javascript" src="js/fireball.js"></script>
-    <script type="text/javascript" src="js/coin.js"></script>
-    <script type="text/javascript" src="js/bcoin.js"></script>
-    <script type="text/javascript" src="js/goomba.js"></script>
-    <script type="text/javascript" src="js/koopa.js"></script>
-    <script type="text/javascript" src="js/floor.js"></script>
-    <script type="text/javascript" src="js/block.js"></script>
-    <script type="text/javascript" src="js/rubble.js"></script>
-    <script type="text/javascript" src="js/prop.js"></script>
-    <script type="text/javascript" src="js/player.js"></script>
-    <script type="text/javascript" src="js/flag.js"></script>
-    <script type="text/javascript" src="js/levels/level.js"></script>
-    <script type="text/javascript" src="js/levels/11tunnel.js"></script>
-
-
-
+    <script src="js/util.js" type="text/javascript">
+    </script>
+    <script src="js/input.js" type="text/javascript">
+    </script>
+    <script src="js/resources.js" type="text/javascript">
+    </script>
+    <script src="js/sprite.js" type="text/javascript">
+    </script>
+    <script src="js/entity.js" type="text/javascript">
+    </script>
+    <script src="js/pipe.js" type="text/javascript">
+    </script>
+    <script src="js/mushroom.js" type="text/javascript">
+    </script>
+    <script src="js/fireflower.js" type="text/javascript">
+    </script>
+    <script src="js/star.js" type="text/javascript">
+    </script>
+    <script src="js/fireball.js" type="text/javascript">
+    </script>
+    <script src="js/coin.js" type="text/javascript">
+    </script>
+    <script src="js/bcoin.js" type="text/javascript">
+    </script>
+    <script src="js/goomba.js" type="text/javascript">
+    </script>
+    <script src="js/koopa.js" type="text/javascript">
+    </script>
+    <script src="js/floor.js" type="text/javascript">
+    </script>
+    <script src="js/block.js" type="text/javascript">
+    </script>
+    <script src="js/rubble.js" type="text/javascript">
+    </script>
+    <script src="js/prop.js" type="text/javascript">
+    </script>
+    <script src="js/player.js" type="text/javascript">
+    </script>
+    <script src="js/flag.js" type="text/javascript">
+    </script>
+    <script src="js/levels/level.js" type="text/javascript">
+    </script>
+    <script src="js/levels/11tunnel.js" type="text/javascript">
+    </script>
 
     <title>Generate Maps</title>
     <link href="images/mario.ico" rel="icon">
@@ -1567,7 +1581,7 @@
             var manualRadio = document.getElementById("manualRadio");
             var parameters = document.getElementById("parameters");
             var clusteringBasedRadio = document.getElementById("clusteringBasedRadio");
-            var formHighLevelConvertion = document.getElementById("formHighLevelConvertion");
+            var formHighLevelConversion = document.getElementById("formHighLevelConversion");
             var newworkStructure = document.getElementById("networkStructure");
 
             rowSplits.disabled = true;
@@ -1578,7 +1592,7 @@
             manualRadio.disabled = true;
             parameters.disabled = true;
             clusteringBasedRadio.disabled = true;
-            formHighLevelConvertion.disabled = true;
+            formHighLevelConversion.disabled = true;
             networkStructure.disabled = true;
 
             MdMC = false;
@@ -1596,7 +1610,7 @@
             var manualRadio = document.getElementById("manualRadio");
             var parameters = document.getElementById("parameters");
             var clusteringBasedRadio = document.getElementById("clusteringBasedRadio");
-            var formHighLevelConvertion = document.getElementById("formHighLevelConvertion");
+            var formHighLevelConversion = document.getElementById("formHighLevelConversion");
             var networkStructure = document.getElementById("networkStructure");
 
             rowSplits.disabled = false;
@@ -1607,7 +1621,7 @@
             manualRadio.disabled = true;
             parameters.disabled = true;
             clusteringBasedRadio.disabled = true;
-            formHighLevelConvertion.disabled = true;
+            formHighLevelConversion.disabled = true;
             networkStructure.disabled = false;
 
             MdMC = true;
@@ -1625,7 +1639,7 @@
             var manualRadio = document.getElementById("manualRadio");
             var parameters = document.getElementById("parameters");
             var clusteringBasedRadio = document.getElementById("clusteringBasedRadio");
-            var formHighLevelConvertion = document.getElementById("formHighLevelConvertion");
+            var formHighLevelConversion = document.getElementById("formHighLevelConversion");
             var networkStructure = document.getElementById("networkStructure");
 
             rowSplits.disabled = false;
@@ -1636,7 +1650,7 @@
             manualRadio.disabled = false;
             parameters.disabled = false;
             clusteringBasedRadio.disabled = false;
-            formHighLevelConvertion.disabled = true;
+            formHighLevelConversion.disabled = true;
             networkStructure.disabled = false;
 
             manualRadio.checked = true;
@@ -1648,18 +1662,18 @@
 
         }
 
-        function changeHighLevelMapsConvertion() {
+        function changeHighLevelMapsConversion() {
             var manualRadio = document.getElementById("manualRadio");
             var parameters = document.getElementById("parameters");
             var clusteringBasedRadio = document.getElementById("clusteringBasedRadio");
-            var formHighLevelConvertion = document.getElementById("formHighLevelConvertion");
+            var formHighLevelConversion = document.getElementById("formHighLevelConversion");
 
             if (parameters.disabled == true) {
                 parameters.disabled = false;
-                formHighLevelConvertion.disabled = true;
+                formHighLevelConversion.disabled = true;
             } else {
                 parameters.disabled = true;
-                formHighLevelConvertion.disabled = false;
+                formHighLevelConversion.disabled = false;
             }
 
         }
@@ -1692,232 +1706,255 @@
         <div id="container">
             <ul class="nav nav-tabs">
                 <li class="active">
-                    <a id="options" data-toggle="tab" href="#home">Options</a>
+                    <a data-toggle="tab" href="#home" id="options">Options</a>
                 </li>
 
-                <li>
-                    <a id="textOutput" data-toggle="tab" href="#menu1">Text Output</a>
-                </li>
 
                 <li>
-                    <a id="graphicOutput" data-toggle="tab" href="#menu2">Graphic Output</a>
+                    <a data-toggle="tab" href="#menu1" id="textOutput">Text Output</a>
                 </li>
 
+
                 <li>
-                    <a id="playMario" data-toggle="tab" href="#menu3" style="cursor:not-allowed">Play (Mario)</a>
+                    <a data-toggle="tab" href="#menu2" id="graphicOutput">Graphic Output</a>
+                </li>
+
+
+                <li>
+                    <a data-toggle="tab" href="#menu3" id="playMario" style="cursor:not-allowed">Play (Mario only)</a>
                 </li>
             </ul>
 
 
             <div class="tab-content">
-                <div class="tab-pane fade in active" id="home">
-                    <fieldset class="scheduler-border" id="chooseAGame">
-                        <legend class="scheduler-border">Choose a Game</legend> <select class="form-control" id="formChooseAGame">
-                            <option value="superMarioBros">
-                                Super Mario Bros
-                            </option>
+                <div class="tab-pane fade in active" id="home" style="float: left;">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-3">
+                                <fieldset class="scheduler-border" id="chooseAGame">
+                                    <legend class="scheduler-border">Choose a Game</legend> <select class="form-control" id="formChooseAGame">
+                                        <option value="superMarioBros">
+                                            Super Mario Bros
+                                        </option>
 
-                            <option value="loderunner">
-                                Loderunner
-                            </option>
+                                        <option value="loderunner">
+                                            Loderunner
+                                        </option>
 
-                            <option value="kidIcarus">
-                                Kid Icarus
-                            </option>
+                                        <option value="kidIcarus">
+                                            Kid Icarus
+                                        </option>
 
-                            <option value="other">
-                                Other
-                            </option>
-                        </select>
-                    </fieldset>
-
-
-                    <fieldset class="scheduler-border" id="trainingMaps">
-                        <legend class="scheduler-border">Training Maps</legend>
-
-                        <div class="radio">
-                            <label><input checked id="defaultMaps" name="optradio" onchange="changeTrainingMaps()" type="radio" value="default">Use default training maps</label>
-                        </div>
-
-
-                        <div class="radio">
-                            <label><input id="userYourOwnMapsRadio" name="optradio" onchange="changeTrainingMaps()" type="radio" value="userMaps">Use your own maps</label>
-                        </div>
-                        <input disabled="true" id="fileinput" type="file">
-                    </fieldset>
-
-
-                    <fieldset class="scheduler-border" id="chooseAMethod">
-                        <legend class="scheduler-border">Choose a Method</legend>
-
-                        <div class="radio">
-                            <label><input checked name="RadioChooseAMethod" onchange="changeToMdMC()" type="radio" value="MdMC"> Multi-Dimensional Markov chains (MdMC)<br></label>
-                        </div>
-
-
-                        <div class="radio">
-                            <label><input disabled="true" name="RadioChooseAMethod" onchange="changeToHMdMC()" type="radio" value="HMdMC"> Hierarchical Multi-Dimensional Markov chains (HMdMC)<br></label>
-                        </div>
-
-
-                        <div class="radio">
-                            <label><input disabled="true" name="RadioChooseAMethod" onchange="changeToMRF()" type="radio" value="MRF"> Markov Random Fields (MRF)<br></label>
-                        </div>
-                    </fieldset>
-
-
-                    <fieldset class="scheduler-border" id="mapSize">
-                        <legend class="scheduler-border">Map Size</legend>
-
-                        <div class="input-group">
-                            <span class="input-group-addon">Height</span> <input aria-describedby="height" class="form-control" id="height" type="text" value="12">
-                        </div>
-                        <br>
-
-
-                        <div class="input-group">
-                            <span class="input-group-addon">Width&nbsp;</span> <input aria-describedby="width" class="form-control" id="width" type="text" value="210">
-                        </div>
-                    </fieldset>
-
-
-                    <fieldset class="scheduler-border" id="experimentalSetUps">
-                        <legend class="scheduler-border">Experimental Set-Ups</legend>
-
-                        <div id="experimentalOptions">
-                            <div class="input-group">
-                                <span class="input-group-addon">Row Splits&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <input aria-describedby="rowSplits" class="form-control" id="rowSplits" type="text" value="12">
+                                        <option value="other">
+                                            Other
+                                        </option>
+                                    </select>
+                                </fieldset>
                             </div>
-                            <br>
 
 
-                            <div class="input-group">
-                                <span class="input-group-addon">Lookahead&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <input aria-describedby="lookahead" class="form-control" disabled="true" id="lookahead" type="text" value="0">
+                            <div class="col-3">
+                                <fieldset class="scheduler-border" id="trainingMaps">
+                                    <legend class="scheduler-border">Training Maps</legend>
+
+                                    <div class="radio">
+                                        <label><input checked id="defaultMaps" name="optradio" onchange="changeTrainingMaps()" onclick="hideFileChooser()" type="radio" value="default">Use default training maps</label>
+                                    </div>
+
+
+                                    <div class="radio">
+                                        <label><input id="userYourOwnMapsRadio" name="optradio" onchange="changeTrainingMaps()" onclick="showFileChooser()" type="radio" value="userMaps">Use your own maps</label>
+                                    </div>
+                                    <input disabled="true" id="fileinput" type="file">
+                                </fieldset>
                             </div>
-                            <br>
 
 
-                            <div class="input-group">
-                                <span class="input-group-addon">Network Structure&nbsp;&nbsp;</span> <input aria-describedby="networkStructure" class="form-control" id="networkStructure" type="text" value="3">
+                            <div class="col-3">
+                                <fieldset class="scheduler-border" id="mapSize">
+                                    <legend class="scheduler-border">Map Size</legend>
+
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Height</span> <input aria-describedby="height" class="form-control" id="height" type="text" value="12">
+                                    </div>
+                                    <br>
+
+
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Width&nbsp;</span> <input aria-describedby="width" class="form-control" id="width" type="text" value="210">
+                                    </div>
+                                </fieldset>
+                            </div>
+
+
+                            <div class="col-3">
+                                <fieldset class="scheduler-border" id="chooseAMethod">
+                                    <legend class="scheduler-border">Choose a Method</legend>
+
+                                    <div class="radio">
+                                        <label><input checked name="RadioChooseAMethod" onchange="changeToMdMC()" type="radio" value="MdMC"> Multi-Dimensional Markov chains (MdMC)<br></label>
+                                    </div>
+
+
+                                    <div class="radio">
+                                        <label><input disabled="true" name="RadioChooseAMethod" onchange="changeToHMdMC()" type="radio" value="HMdMC"> Hierarchical Multi-Dimensional Markov chains (HMdMC)<br></label>
+                                    </div>
+
+
+                                    <div class="radio">
+                                        <label><input disabled="true" name="RadioChooseAMethod" onchange="changeToMRF()" type="radio" value="MRF"> Markov Random Fields (MRF)<br></label>
+                                    </div>
+                                </fieldset>
                             </div>
                         </div>
 
 
-                        <div id="experimentalOptions">
-                            <div class="input-group">
-                                <span class="input-group-addon">Distance Metric&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <input aria-describedby="distanceMetric" class="form-control" disabled="true" id="distanceMetric" type="text">
-                            </div>
-                            <br>
+                        <div class="row">
+                            <div class="col-12">
+                                <fieldset class="scheduler-border" id="experimentalSetUps">
+                                    <legend class="scheduler-border">Experimental Set-Ups</legend>
+
+                                    <div id="experimentalOptions">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">Row Splits&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <input aria-describedby="rowSplits" class="form-control" id="rowSplits" type="text" value="12">
+                                        </div>
+                                        <br>
 
 
-                            <div class="input-group">
-                                <span class="input-group-addon">Tile Size&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <input aria-describedby="tileSize" class="form-control" disabled="true" id="tileSize" type="text">
-                            </div>
-                            <br>
+                                        <div class="input-group">
+                                            <span class="input-group-addon">Lookahead&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <input aria-describedby="lookahead" class="form-control" disabled="true" id="lookahead" type="text" value="0">
+                                        </div>
+                                        <br>
 
 
-                            <div class="input-group">
-                                <span class="input-group-addon">Number of Clusters</span> <input aria-describedby="numberOfClusters" class="form-control" disabled="true" id="numberOfClusters" type="text">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">Network Structure&nbsp;&nbsp;</span> <input aria-describedby="networkStructure" class="form-control" id="networkStructure" type="text" value="3">
+                                        </div>
+                                    </div>
+
+
+                                    <div id="experimentalOptions">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">Distance Metric&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <input aria-describedby="distanceMetric" class="form-control" disabled="true" id="distanceMetric" type="text">
+                                        </div>
+                                        <br>
+
+
+                                        <div class="input-group">
+                                            <span class="input-group-addon">Tile Size&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <input aria-describedby="tileSize" class="form-control" disabled="true" id="tileSize" type="text">
+                                        </div>
+                                        <br>
+
+
+                                        <div class="input-group">
+                                            <span class="input-group-addon">Number of Clusters</span> <input aria-describedby="numberOfClusters" class="form-control" disabled="true" id="numberOfClusters" type="text">
+                                        </div>
+                                    </div>
+
+
+                                    <fieldset class="scheduler-border" id="experimentalFieldset">
+                                        <legend class="scheduler-border">Converting to High-Level Maps</legend>
+
+                                        <div id="highLevelConversion">
+                                            <div class="radio">
+                                                <label><input checked disabled="true" id="manualRadio" name="optradioExperimental" onchange="changeHighLevelMapsConversion()" type="radio" value="manual">Manual</label>
+                                            </div>
+                                        </div>
+
+
+                                        <div id="highLevelConversion2">
+                                            <div class="input-group">
+                                                <span class="input-group-addon">Parameters</span> <input aria-describedby="Parameters" class="form-control" disabled="true" id="parameters" type="text">
+                                            </div>
+                                        </div>
+
+
+                                        <div id="highLevelConversion">
+                                            <div class="radio">
+                                                <label><input disabled="true" id="clusteringBasedRadio" name="optradioExperimental" onchange="changeHighLevelMapsConversion()" type="radio" value="clusteringBased">Clustering-based</label>
+                                            </div>
+                                        </div>
+
+
+                                        <div id="highLevelConversion2">
+                                            <select class="form-control" disabled="true" id="formHighLevelConversion">
+                                                <option value="direct">
+                                                    Direct
+                                                </option>
+
+                                                <option value="histogram">
+                                                    Histogram
+                                                </option>
+
+                                                <option value="markov">
+                                                    Markov
+                                                </option>
+
+                                                <option value="shape">
+                                                    Shape
+                                                </option>
+
+                                                <option value="weighted">
+                                                    Weighted
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </fieldset>
+                                </fieldset>
                             </div>
                         </div>
 
 
-                        <fieldset class="scheduler-border" id="experimentalFieldset">
-                            <legend class="scheduler-border">Converting to High-Level Maps</legend>
+                        <div class="row">
+                            <div class="col-12">
+                                <fieldset class="scheduler-border" id="generateMaps">
+                                    <legend class="scheduler-border">Maps</legend>
 
-                            <div id="highLevelConvertion">
-                                <div class="radio">
-                                    <label><input checked disabled="true" id="manualRadio" name="optradioExperimental" onchange="changeHighLevelMapsConvertion()" type="radio" value="manual">Manual</label>
-                                </div>
-                            </div>
-
-
-                            <div id="highLevelConvertion2">
-                                <div class="input-group">
-                                    <span class="input-group-addon">Parameters</span> <input aria-describedby="Parameters" class="form-control" disabled="true" id="parameters" type="text">
-                                </div>
-                            </div>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Number of maps to generate</span> <input aria-describedby="height" class="form-control" id="numMaps" type="text" value="1">
+                                    </div>
+                                    <br>
 
 
-                            <div id="highLevelConvertion">
-                                <div class="radio">
-                                    <label><input disabled="true" id="clusteringBasedRadio" name="optradioExperimental" onchange="changeHighLevelMapsConvertion()" type="radio" value="clusteringBased">Clustering-based</label>
-                                </div>
-                            </div>
+                                    <div>
+                                        <button class="btn btn-primary btn-block" id="genMultiple" onclick="genMultipleHelp()" type="button">Train and Sample maps</button>
+                                    </div>
+                                    <script>
+                                    var numMaps;
+                                    var numGenerated;
 
-
-                            <div id="highLevelConvertion2">
-                                <select class="form-control" disabled="true" id="formHighLevelConvertion">
-                                    <option value="direct">
-                                        Direct
-                                    </option>
-
-                                    <option value="histogram">
-                                        Histogram
-                                    </option>
-
-                                    <option value="markov">
-                                        Markov
-                                    </option>
-
-                                    <option value="shape">
-                                        Shape
-                                    </option>
-
-                                    <option value="weighted">
-                                        Weighted
-                                    </option>
-                                </select>
-                            </div>
-                        </fieldset>
-                    </fieldset>
-
-                        <fieldset class="scheduler-border" id="generateMaps">
-                            <legend class="scheduler-border">Maps</legend>
-
-                            <div class="input-group">
-                                <span class="input-group-addon">Number of maps to generate</span>
-                                <input aria-describedby="height" class="form-control" id="numMaps" type="text" value="1">
-                            </div>
-                            <br>
-
-                            <div>
-                                <button class="btn btn-primary btn-block" id="genMultiple" onclick="genMultipleHelp()" type="button">Train and Sample maps</button>
-                            </div>
-                            <script>
-                                var numMaps;
-                                var numGenerated;
-
-                                // Note: There needs to be some sort of delay between these steps for some reason.
-                                function genMultipleHelp() {
+                                    // Note: There needs to be some sort of delay between these steps for some reason.
+                                    function genMultipleHelp() {
                                     numMaps = document.getElementById("numMaps").value;
                                     numGenerated = 0;
                                     genMultiple();
-                                }
-                                function genMultiple() {
+                                    }
+                                    function genMultiple() {
                                     samplingReady();
                                     window.setTimeout(genMultiple2, 1000);
-                                }
-                                function genMultiple2() {
+                                    }
+                                    function genMultiple2() {
                                     if (numGenerated++ == numMaps) {
                                         // Stop.
                                     } else {
                                         samplesGenerated();
                                         window.setTimeout(genMultiple(), 1000);
                                     }
-                                }
-                            </script>
-
-                        </fieldset>
-
-
-                    <div id="divButtons">
-                        <button class="btn btn-primary btn-block" id="trainingMapsButton" onclick="samplingReady()" type="button">Training Maps</button>
-                    </div>
+                                    }
+                                    </script>
+                                </fieldset>
 
 
-                    <div id="divButtons2">
-                        <button class="btn btn-primary btn-block" disabled="true" id="samplingMapsButton" onclick="samplesGenerated()" type="button">Sampling Maps</button>
+                                <div id="divButtons">
+                                    <button class="btn btn-primary btn-block" id="trainingMapsButton" onclick="samplingReady()" type="button">Training Maps</button>
+                                </div>
+
+
+                                <div id="divButtons2">
+                                    <button class="btn btn-primary btn-block" disabled="true" id="samplingMapsButton" onclick="samplesGenerated()" type="button">Sampling Maps</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -1935,20 +1972,45 @@
 
 
                 <div class="tab-pane fade" id="menu3">
-                    <div id="gameOutputTab">
-                    <p> Controls: <br>
-                        <ul>
-                            <li>Up: W / Up Arrow / Space</li>
-                            <li>Left: A / Left Arrow</li>
-                            <li>Down: S / Down Arrow</li>
-                            <li>Right: D / Right Arrow</li>
-                            <li>Run: Left Shift / Z</li>
-                        </ul>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-3" style="float: left;">
+                                <p>Controls:<br></p>
+
+
+                                <ul>
+                                    <li>Up: W / Up Arrow / Space</li>
+
+
+                                    <li>Left: A / Left Arrow</li>
+
+
+                                    <li>Down: S / Down Arrow</li>
+
+
+                                    <li>Right: D / Right Arrow</li>
+
+
+                                    <li>Run: Left Shift / Z</li>
+                                </ul>
+
+
+                                <p>Mario Game Engine: <a href="https://github.com/reruns/mario">GitHub</a></p>
+                            </div>
+
+
+                            <div class="col-9" style="float: center;">
+                                <div id="gameOutputTab">
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
+
     <footer>
         Drexel 2016
     </footer>

@@ -1,302 +1,264 @@
-
-
-
 p {
-	margin:0 }
+    margin: 0
+}
 
 body {
-position:absolute;
-top:0;
-bottom:0;
-right:0;
-left:0;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
 }
 
-header{
-	text-align:center;
-	padding-bottom:15px;
-	padding-top:50px;
+header {
+    text-align: center;
+    padding-bottom: 15px;
+    padding-top: 50px;
 }
 
-#container{
+
+
+#containerHome {
     max-width: 100%;
-    height: 750px;
+    height: 800px
 }
 
-#containerHome{
-	max-width: 100%;
-    height:800px
-}
-
-#homeButton{
-	padding-left: 880px;
+#homeButton {
+    padding-left: 880px;
 }
 
 .navbar {
-	min-width: 100% !important;
-    width:100% !important;
-    height:50px !important;
-    min-height:50px !important;
+    min-width: 100% !important;
+    width: 100% !important;
+    height: 50px !important;
+    min-height: 50px !important;
 }
-
 
 fieldset.scheduler-border {
     border: 1px groove #ddd !important;
     padding: 0 1.4em 1.4em 1.4em !important;
-
-    -webkit-box-shadow:  0px 0px 0px 0px #000;
-            box-shadow:  0px 0px 0px 0px #000;
-
+    -webkit-box-shadow: 0px 0px 0px 0px #000;
+    box-shadow: 0px 0px 0px 0px #000;
 }
 
 legend.scheduler-border {
     font-size: 1.2em !important;
     font-weight: bold !important;
     text-align: left !important;
-
 }
 
 legend {
     border: solid 1px;
     padding: 0 10px 0px 10px;
     border-bottom: none;
-	width: auto;
+    width: auto;
     border: none;
     font-size: 14px;
 }
 
-
 section {
-
-
-    float:left;
-	height:670px;
-	width: 100%;
-	padding-top: 60px;
-
+    float: left;
+    height: 670px;
+    width: 100%;
+    padding-top: 60px;
 }
+
 footer {
-    background-color:rgb(33,33,33);
-    color:white;
-    clear:both;
-    text-align:center;
-padding-top:5px;
-	height: 30px;
-	 position: fixed;
-    margin-top: -150px; /* negative value of footer height */
+    background-color: rgb(33, 33, 33);
+    color: white;
+    clear: both;
+    text-align: center;
+    padding-top: 5px;
+    height: 30px;
+    position: fixed;
+    margin-top: -150px;
+    /* negative value of footer height */
     height: 25px;
-   font-size: 11px;
-    bottom:0px;
-    width:100%;
-
+    font-size: 11px;
+    bottom: 0px;
+    width: 100%;
 }
 
-#space{
-	margin-top: -4px;
-	padding: 0px;
-	height: 0px;
-	width: 0px;
-
+#space {
+    margin-top: -4px;
+    padding: 0px;
+    height: 0px;
+    width: 0px;
 }
 
-#formChooseAGame{
-	margin-top:25px;
+#formChooseAGame {
+    margin-top: 25px;
 }
 
-#chooseAGame{
-
-	margin-top:22px;
-	height: 160px;
-	width: 203px;
-	float: left;
-	margin-left:40px;
+#chooseAGame {
+    margin-top: 22px;
+    height: 160px;
+    width: 20vw;
+    margin-left: 19px;
+    float: left;
 }
 
-
-#trainingMaps{
-	margin-top:22px;
-	height: 160px;
-	width: 350px;
-	float: left;
-	margin-left:13px;
-	padding-top: 0px;
+#trainingMaps {
+    margin-top: 22px;
+    height: 160px;
+    float: left;
+    width: 18vw;
+    margin-left: 19px;
+    padding-top: 0px;
 }
 
-#chooseAMethod{
-	margin-top:22px;
-	height: 160px;
-	width: 420px;
-	float: left;
-	margin-left:13px;
+#mapSize {
+    margin-top: 22px;
+    height: 160px;
+    width: 14vw;
+    float: left;
+    margin-left: 19px;
+    padding-top: 0px;
 }
 
-#mapSize{
-
-	margin-top:22px;
-	height: 160px;
-	width: 210px;
-	float: left;
-	margin-left:13px;
-
+#chooseAMethod {
+    margin-top: 22px;
+    height: 160px;
+    width: 30vw;
+    float: left;
+    margin-left: 19px;
 }
 
-#experimentalSetUps{
-	margin-top:10px;
-	height: 260px;
-	width: 1222px;
-	float: left;
-	margin-left:40px;
-
+#experimentalSetUps {
+    margin-top: 10px;
+    height: 260px;
+    width: 1222px;
+    float: left;
+    margin-left: 19px;
 }
 
-#experimentalOptions{
-
-	padding-top:30px;
-	height: 200px;
-	width: 300px;
-	float: left;
-	margin-left:10px;
-	padding-right: 30px;
+#experimentalOptions {
+    padding-top: 30px;
+    height: 200px;
+    width: 300px;
+    float: left;
+    margin-left: 10px;
+    padding-right: 30px;
 }
 
-#experimentalFieldset{
-
-margin-left:10px;
-height: 200px;
-	width: 540px;
-	float: left;
-
-
+#experimentalFieldset {
+    margin-left: 19px;
+    height: 200px;
+    width: 540px;
+    float: left;
 }
 
-#highLevelConvertion{
-	margin-top:8px;
-	margin-bottom: 10px;
-	height: 60px;
-	width: 150px;
-	float: left;
+#highLevelConversion {
+    margin-top: 8px;
+    margin-bottom: 10px;
+    height: 60px;
+    width: 150px;
+    float: left;
 }
 
-#highLevelConvertion2{
-	margin-top:8px;
-	margin-bottom: 10px;
-	height: 60px;
-	width: 340px;
-	float: left;
+#highLevelConversion2 {
+    margin-top: 8px;
+    margin-bottom: 10px;
+    height: 60px;
+    width: 340px;
+    float: left;
 }
 
-#generateMaps{
-
-	margin-top:10px;
-	height: 150px;
-	width: 1222px;
-	float: left;
-	margin-left:40px;
-
+#generateMaps {
+    margin-top: 10px;
+    height: 150px;
+    width: 1222px;
+    float: left;
+    margin-left: 19px;
 }
 
-#divButtons{
-	margin-top:10px;
-	margin-left:40px;
-height: 40px;
-	width: 1222px;
-	float: left;
+#divButtons {
+    margin-top: 10px;
+    margin-left: 19px;
+    height: 40px;
+    width: 1222px;
+    float: left;
 }
 
-#divButtons2{
-	margin-top:8px;
-	margin-left:40px;
-height: 40px;
-	width: 1222px;
-	float: left;
+#divButtons2 {
+    margin-top: 8px;
+    margin-left: 19px;
+    height: 40px;
+    width: 1222px;
+    float: left;
 }
 
-.btn-primary{
-	font-size: 17px;
+.btn-primary {
+    font-size: 17px;
 }
 
-#textOutputTab{
-font-family: "Courier New", Courier, monospace;
-	margin-top:32px;
-	margin-left:40px;
-
-	width: 2550px;
-	float: left;
-	border:1px;
-
+#textOutputTab {
+    font-family: "Courier New", Courier, monospace;
+    margin-top: 32px;
+    margin-left: 19px;
+    width: 2550px;
+    float: left;
+    border: 1px;
 }
 
-#graphicOutputTab{
-
-	margin-top:32px;
-	margin-left:40px;
-	width: 4850px;
-
+#graphicOutputTab {
+    margin-top: 32px;
+    margin-left: 40px;
+    width: 4850px;
 }
 
-.carousel-inner > .item > img {
-     width: 100%;
+.carousel-inner>.item>img {
+    width: 100%;
     margin: 0 auto;
 }
 
-#myCarousel{
-margin-top:50px;
+#myCarousel {
+    margin-top: 50px;
 }
 
-#divText{
-	padding-top:40px;
-	margin-left: 40px;
-	height: 300px;
-	width:1222px;
+#divText {
+    padding-top: 40px;
+    margin-left: 40px;
+    height: 300px;
+    width: 1222px;
 }
 
-#pHome{
-	padding-top: 20px;
-	color: rgb(55,55,55);
+#pHome {
+    padding-top: 20px;
+    color: rgb(55, 55, 55);
 }
 
-
-#howToUse{
-	font-size: 13px;
-	margin-top:15px;
-	height: 430px;
-	width: 1222px;
-	float: left;
-	margin-left:40px;
+#howToUse {
+    font-size: 13px;
+    margin-top: 15px;
+    height: 430px;
+    width: 1222px;
+    float: left;
+    margin-left: 40px;
 }
 
-#contacts{
-
-	margin-top:15px;
-	height: 140px;
-	width: 1222px;
-	float: left;
-	margin-left:40px;
+#contacts {
+    margin-top: 15px;
+    height: 230px;
+    width: 1222px;
+    float: left;
+    margin-left: 40px;
 }
 
-#info{
-	font-size: 12px;
-	text-align:center;
-	float: left;
-	margin-left: 5px;
+#info {
+    font-size: 12px;
+    text-align: center;
+    float: left;
+    margin-left: 5px;
 }
 
-#photoDiv{
-
-	float: left;
-	margin-top: 10px;
-	margin-left: 85px;
+#photoDiv {
+    float: left;
+    margin-top: 10px;
+    margin-left: 85px;
 }
 
-#photo{
-	width:60px;height:60px;
-}
-
-
-#divMapSize{
-
-}
-
-#divChooseAGame{
-
+#photo {
+    width: 60px;
+    height: 60px;
 }
