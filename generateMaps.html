@@ -492,7 +492,9 @@
                         //createNewParagraph(aux, "textOutputTab");
 
                         if (gameName == "superMarioBros") {
-                            createNewGame(aux);
+                            createMarioGame(aux);
+                        } else if (gameName == "loderunner") {
+                            createLoderunnerGame(aux);
                         }
 
                         aux = "";
@@ -1432,7 +1434,7 @@
         var mapData = "";
         var mapDataSize = 0;
         var oldMapData = "";
-        function createNewGame(string) {
+        function createMarioGame(string) {
             mapDataSize++;
             mapData += string + "\n";
 
@@ -1629,6 +1631,72 @@
                     // TODO: Mute ALL sounds.
                     music.overworld.pause();
                 }
+            }
+        }
+
+        function createLoderunnerGame(string) {
+            mapDataSize++;
+            mapData += string + "\n";
+
+            if (mapDataSize == mapHeight) {
+                $.when(
+                    $.getScript( "/loderunner_game/lib/preloadjs-0.6.2.min.js" ),
+                    $.getScript( "/loderunner_game/lib/soundjs-0.6.2.min.js" ),
+                    $.getScript( "/loderunner_game/lib/tweenjs-0.6.2.min.js" ),
+                    $.getScript( "/loderunner_game/lib/easeljs-0.7.1.min.js" ),
+                    $.getScript( "/loderunner_game/flag32Id.js" ),
+                    $.getScript( "/loderunner_game/lodeRunner.gameVerName.js" ),
+
+                    $.Deferred(function( deferred ){
+                        $( deferred.resolve );
+                    })
+                ).done(function(){
+
+                    // modify map (lodeRunner.v.classic.js) here
+
+
+
+                    $.when(
+                        $.getScript( "/loderunner_game/lodeRunner.v.classic.js" ),
+                        $.getScript( "/loderunner_game/lodeRunner.v.professional.js" ),
+                        $.getScript( "/loderunner_game/lodeRunner.v.revenge.js" ),
+                        $.getScript( "/loderunner_game/lodeRunner.v.fanBookMod.js" ),
+                        $.getScript( "/loderunner_game/lodeRunner.v.championship.js" ),
+                        $.getScript( "/loderunner_game/lodeRunner.storage.js" ),
+                        $.getScript( "/loderunner_game/lodeRunner.def.js" ),
+                        $.getScript( "/loderunner_game/lodeRunner.key.js" ),
+                        $.getScript( "/loderunner_game/lodeRunner.misc.js" ),
+                        $.getScript( "/loderunner_game/lodeRunner.hiscore.js" ),
+                        $.getScript( "/loderunner_game/lodeRunner.info.js" ),
+                        $.getScript( "/loderunner_game/lodeRunner.menu.js" ),
+                        $.getScript( "/loderunner_game/lodeRunner.runner.js" ),
+                        $.getScript( "/loderunner_game/lodeRunner.guard.js" ),
+                        $.getScript( "/loderunner_game/lodeRunner.demo.js" ),
+                        $.getScript( "/loderunner_game/lodeRunner.demoData1.js" ),
+                        $.getScript( "/loderunner_game/lodeRunner.edit.js" ),
+                        $.getScript( "/loderunner_game/lodeRunner.preload.js" ),
+                        $.getScript( "/loderunner_game/lodeRunner.colorTheme.js" ),
+                        $.getScript( "/loderunner_game/lodeRunner.colorSelector.js" ),
+                        $.getScript( "/loderunner_game/lodeRunner.gamepad.js" ),
+                        $.getScript( "/loderunner_game/lodeRunner.main.js" ),
+                        $.getScript( "/loderunner_game/lodeRunner.win.js" ),
+                        $.Deferred(function( deferred ){
+                            $( deferred.resolve );
+                        })
+                    ).done(function(){
+                        document.getElementById("gameOutputTab").innerHTML = "";
+                        var div = document.createElement("div");
+                        div.className = "canvas";
+                        var canvas = document.createElement("canvas");
+                        canvas.id = "canvas";
+                        canvas.style.width = "960";
+                        canvas.style.height = "400";
+                        div.appendChild(canvas);
+                        document.getElementById("gameOutputTab").appendChild(div);
+                                init();
+                    });
+
+                });
             }
         }
 
@@ -2239,6 +2307,7 @@
 
 
                                 <p>Mario Game Engine: <a href="https://github.com/reruns/mario">GitHub</a></p>
+                                <p>Loderunner Game Engine: <a href="https://github.com/SimonHung/LodeRunner_TotalRecall">GitHub</a></p>
                             </div>
 
 
