@@ -488,7 +488,6 @@
                         if (gameName != "other") {
                             createNewImage("space", "space");
                         }
-                        console.log(aux);
                         textOutput += aux + "<br>";
                         //createNewParagraph(aux, "textOutputTab");
 
@@ -1788,8 +1787,7 @@
         //--------------------- SITE FUNCTIONS -------------------------------------------
 
         function gameChanged(selectedValue) {
-
-            numberOfMapsGenerated = 0;
+            //numberOfMapsGenerated = 0;
 
             choseGame = selectedValue;
             if (selectedValue == "other") {
@@ -1803,22 +1801,22 @@
 
 
             if (selectedValue == "loderunner") {
-                $('#textOutputTab').empty();
-                $('#graphicOutputTab').empty();
+                //$('#textOutputTab').empty();
+                //$('#graphicOutputTab').empty();
                 document.getElementById("rowSplits").value = 22;
                 document.getElementById("height").value = 22;
                 document.getElementById("width").value = 32;
                 document.getElementById("networkStructure").value = 3;
             } else if (selectedValue == "superMarioBros") {
-                $('#textOutputTab').empty();
-                $('#graphicOutputTab').empty();
+                //$('#textOutputTab').empty();
+                //$('#graphicOutputTab').empty();
                 document.getElementById("rowSplits").value = 12;
                 document.getElementById("height").value = 12;
                 document.getElementById("width").value = 210;
                 document.getElementById("networkStructure").value = 3;
             } else if (selectedValue == "kidIcarus") {
-                $('#textOutputTab').empty();
-                $('#graphicOutputTab').empty();
+                //$('#textOutputTab').empty();
+                //$('#graphicOutputTab').empty();
                 document.getElementById("rowSplits").value = 159;
                 document.getElementById("height").value = 159;
                 document.getElementById("width").value = 16;
@@ -1986,12 +1984,13 @@
                         <div class="row">
                             <div class="col-3">
                                 <fieldset class="scheduler-border" id="chooseAGame">
-                                    <legend class="scheduler-border">Choose a Game</legend> <select class="form-control" id="formChooseAGame">
-                                        <option value="superMarioBros" onclick="test1()">
+                                    <legend class="scheduler-border">Choose a Game</legend>
+                                    <select class="form-control" id="formChooseAGame" onchange="gameChanged(this.value)">
+                                        <option value="superMarioBros">
                                             Super Mario Bros
                                         </option>
 
-                                        <option value="loderunner" onclick="test2()">
+                                        <option value="loderunner">
                                             Loderunner
                                         </option>
 
@@ -2253,7 +2252,6 @@
             </div>
         </div>
     </section>
-
 
     <footer>
         Drexel 2016
