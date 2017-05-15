@@ -203,8 +203,10 @@ footer {
 
 #graphicOutputTab {
     margin-top: 32px;
-    margin-left: 40px;
-    width: 4850px;
+    margin-left: 19px;
+    max-width: 4850px;
+    float: left;
+    border: 1px;
 }
 
 .carousel-inner>.item>img {

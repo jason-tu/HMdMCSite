@@ -348,6 +348,7 @@
 
             var char;
             var aux = "";
+            var textOutput = "";
             for (var i = 0; i < MapGen.length; i++) {
                 for (var j = 0; j < MapGen[i].length; j++) {
                     aux += MapGen[i][j];
@@ -487,7 +488,9 @@
                         if (gameName != "other") {
                             createNewImage("space", "space");
                         }
-                        createNewParagraph(aux, "textOutputTab");
+                        console.log(aux);
+                        textOutput += aux + "<br>";
+                        //createNewParagraph(aux, "textOutputTab");
 
                         if (gameName == "superMarioBros") {
                             createNewGame(aux);
@@ -499,13 +502,26 @@
                 }
             }
 
-            createNewParagraph("Map Number: " + numberOfMapsGenerated, "textOutputTab");
-            createNewParagraph("Height: " + mapHeight + " - Width: " + mapWidth + " - Row Splits: " + NumberOfRowSplits + " - Network Structure: " + document.getElementById("networkStructure").value, "textOutputTab");
-            createNewParagraph("[End]", "textOutputTab");
+            // Creating Fieldset + Legend
+            var textFieldset = document.createElement("fieldset");
+            textFieldset.className= "scheduler-border";
+            var textFieldsetLegend = document.createElement("legend");
+            textFieldsetLegend.className = "scheduler-border";
+            textFieldsetLegend.innerHTML = "Map " + numberOfMapsGenerated;
+            textFieldset.appendChild(textFieldsetLegend);
 
-            createNewParagraph("Map Number: " + numberOfMapsGenerated, "graphicOutputTab");
-            createNewParagraph("Height: " + mapHeight + " - Width: " + mapWidth + " - Row Splits: " + NumberOfRowSplits + " - Network Structure: " + document.getElementById("networkStructure").value, "graphicOutputTab");
-            createNewParagraph("[End]", "graphicOutputTab");
+            // Creating description
+            var textDescription = document.createElement("p");
+            textDescription.innerHTML = "Height: " + mapHeight + ", Width: " + mapWidth + ", Row Splits: " + NumberOfRowSplits + ", Network Structure: " + document.getElementById("networkStructure").value + "<br><br>";
+            textFieldset.appendChild(textDescription);
+
+            // Actual data
+            var textOutputParagraph = document.createElement("p");
+            textOutputParagraph.innerHTML = textOutput;
+            textFieldset.appendChild(textOutputParagraph);
+
+            document.getElementById("textOutputTab").appendChild(textFieldset);
+            document.getElementById("textOutputTab").appendChild(document.createElement("br"));
 
 
             //-------------- CLEAR VARIABLES ----------------------
@@ -1070,13 +1086,6 @@
 
         }
 
-        function createNewParagraph(string, element) {
-            var text = string;
-            var newParagraph = document.createElement('p');
-            newParagraph.textContent = text;
-            document.getElementById(element).appendChild(newParagraph);
-        }
-
         var imageX = 0;
         var imageY = 0;
         var canvas;
@@ -1087,27 +1096,35 @@
         loadMarioImages();
         loadLoderunnerImages();
         loadKidIcarusImages();
-        var startTime;
         function createNewImage(game, tile) {
             if (imageX == 0 && imageY == 0) {
-                console.log("New canvas");
                 startTime = Date.now();
                 canvas = document.createElement("canvas");
                 canvasCTX = canvas.getContext("2d");
                 canvas.width = mapWidth * 16;
                 canvas.height = mapHeight * 16;
             } else if (imageX == mapWidth && imageY + 1 == mapHeight) {
-                console.log("Adding canvas");
-                document.getElementById("graphicOutputTab").appendChild(canvas);
+                var imageFieldset = document.createElement("fieldset");
+                imageFieldset.className= "scheduler-border";
+                var imageFieldsetLegend = document.createElement("legend");
+                imageFieldsetLegend.className = "scheduler-border";
+                imageFieldsetLegend.innerHTML = "Map " + numberOfMapsGenerated;
+                imageFieldset.appendChild(imageFieldsetLegend);
+
+                var imageDescription = document.createElement("p");
+                imageDescription.innerHTML = "Height: " + mapHeight + ", Width: " + mapWidth + ", Row Splits: " + NumberOfRowSplits + ", Network Structure: " + document.getElementById("networkStructure").value + "<br><br>";
+                imageFieldset.appendChild(imageDescription);
+
+                imageFieldset.appendChild(canvas);
+                document.getElementById("graphicOutputTab").appendChild(imageFieldset);
+                document.getElementById("graphicOutputTab").appendChild(document.createElement("br"));
                 imageX = 0;
                 imageY = 0;
-                console.log(Date.now() - startTime);
                 return;
             }
 
             var img = document.createElement("img");
             if (tile == "space") {
-                console.log("asdfasdf");
                 imageX = 0;
                 imageY++;
             }
@@ -1390,7 +1407,7 @@
             var img9 = new Image();
             img9.src = "Images_Kid_Icarus/F2.png";
             img9.onload = function() {
-                kidIcarusImages[8] = img19
+                kidIcarusImages[8] = img9
 
             }
             var img10 = new Image();
@@ -1940,7 +1957,7 @@
 
 
     <section>
-        <div id="container">
+        <div id="container-fluid">
             <ul class="nav nav-tabs">
                 <li class="active">
                     <a data-toggle="tab" href="#home" id="options">Options</a>
