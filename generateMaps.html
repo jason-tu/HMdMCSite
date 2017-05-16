@@ -1609,7 +1609,7 @@
                 };
 
 
-                document.getElementById("playMario").onclick = function() {
+                document.getElementById("gameOutput").onclick = function() {
                     var script = document.createElement("script");
                     script.src = "js/game.js";
                     document.head.appendChild(script);
@@ -1618,18 +1618,22 @@
 
                     document.getElementById("gameOutputTab").innerHTML = "";
 
-                    document.getElementById("playMario").onclick = function() {
+                    document.getElementById("gameOutput").onclick = function() {
                     };
                 }
-                document.getElementById("playMario").style.cursor = "default";
+                document.getElementById("gameOutput").style.cursor = "default";
 
                 document.getElementById("options").addEventListener("click", pauseMario, false);
                 document.getElementById("textOutput").addEventListener("click", pauseMario, false);
                 document.getElementById("graphicOutput").addEventListener("click", pauseMario, false);
+                document.getElementById("gameOutputTab").addEventListener("click", pauseMario, false);
+
 
                 function pauseMario() {
                     // TODO: Mute ALL sounds.
-                    music.overworld.pause();
+                    if (music != null) {
+                        music.overworld.pause();
+                    }
                 }
             }
         }
@@ -1646,6 +1650,9 @@
                     $.getScript( "/loderunner_game/lib/easeljs-0.7.1.min.js" ),
                     $.getScript( "/loderunner_game/flag32Id.js" ),
                     $.getScript( "/loderunner_game/lodeRunner.gameVerName.js" ),
+                    $.getScript( "/loderunner_game/lodeRunner.v.classic.js" ),
+                    $.getScript( "/loderunner_game/lodeRunner.storage.js" ),
+                    $.getScript( "/loderunner_game/lodeRunner.def.js" ),
 
                     $.Deferred(function( deferred ){
                         $( deferred.resolve );
@@ -1653,17 +1660,16 @@
                 ).done(function(){
 
                     // modify map (lodeRunner.v.classic.js) here
+                    var newMapFormat = convertMap(mapData);
+                    mapData = "";
+                    classicData[0] = newMapFormat;
 
-
+                    NO_OF_TILES_X = mapWidth;
+                    NO_OF_TILES_Y = mapHeight;
+                    BASE_SCREEN_X = (NO_OF_TILES_X * BASE_TILE_X);
+                    BASE_SCREEN_Y = (NO_OF_TILES_Y * BASE_TILE_Y + GROUND_TILE_Y + TEXT_TILE_Y);
 
                     $.when(
-                        $.getScript( "/loderunner_game/lodeRunner.v.classic.js" ),
-                        $.getScript( "/loderunner_game/lodeRunner.v.professional.js" ),
-                        $.getScript( "/loderunner_game/lodeRunner.v.revenge.js" ),
-                        $.getScript( "/loderunner_game/lodeRunner.v.fanBookMod.js" ),
-                        $.getScript( "/loderunner_game/lodeRunner.v.championship.js" ),
-                        $.getScript( "/loderunner_game/lodeRunner.storage.js" ),
-                        $.getScript( "/loderunner_game/lodeRunner.def.js" ),
                         $.getScript( "/loderunner_game/lodeRunner.key.js" ),
                         $.getScript( "/loderunner_game/lodeRunner.misc.js" ),
                         $.getScript( "/loderunner_game/lodeRunner.hiscore.js" ),
@@ -1693,11 +1699,42 @@
                         canvas.style.height = "400";
                         div.appendChild(canvas);
                         document.getElementById("gameOutputTab").appendChild(div);
-                                init();
+                        init();
+
+                        document.getElementById("gameOutput").style.cursor = "default";
+
                     });
 
                 });
             }
+        }
+
+        function convertMap(string) {
+            var toReturn = "";
+
+            toReturn = replaceAll(string, ".", " ");
+            toReturn = replaceAll(toReturn, "#", "H");
+            toReturn = replaceAll(toReturn, "B", "@");
+            toReturn = replaceAll(toReturn, "G", "$");
+            toReturn = replaceAll(toReturn, "E", "0");
+            toReturn = replaceAll(toReturn, "b", "#");
+            toReturn = replaceAll(toReturn, "\n", "");
+
+            // Placing player. Lowest center.
+            for (var i = toReturn.length - 1; i >= 0; i--) {
+                if (toReturn.charAt(i) == " ") {
+                    toReturn = toReturn.substring(0, i) + "&" + toReturn.substring(i + 1, toReturn.length);
+                    break;
+                }
+            }
+
+            return toReturn;
+        }
+        function replaceAll(str, find, replace) {
+          return str.replace(new RegExp(escapeRegExp(find), 'g'), replace);
+        }
+        function escapeRegExp(str) {
+            return str.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
         }
 
 
@@ -2031,17 +2068,17 @@
 
 
                 <li>
-                    <a data-toggle="tab" href="#menu1" id="textOutput">Text Output</a>
+                    <a data-toggle="tab" href="#menu1" id="textOutput" style="visibility: hidden;">Text Output</a>
                 </li>
 
 
                 <li>
-                    <a data-toggle="tab" href="#menu2" id="graphicOutput">Graphic Output</a>
+                    <a data-toggle="tab" href="#menu2" id="graphicOutput" style="visibility: hidden;">Graphic Output</a>
                 </li>
 
 
                 <li>
-                    <a data-toggle="tab" href="#menu3" id="playMario" style="cursor:not-allowed">Play (Mario only)</a>
+                    <a data-toggle="tab" href="#menu3" id="gameOutput" style="visibility: hidden;">Play</a>
                 </li>
             </ul>
 
@@ -2257,6 +2294,11 @@
                                     function genMultiple2() {
                                         if (numGenerated++ == numMaps) {
                                             // Stop.
+                                            document.getElementById("textOutput").style.visibility = "visible";
+                                            document.getElementById("graphicOutput").style.visibility = "visible";
+                                            if (gameName == "superMarioBros" || gameName == "loderunner") {
+                                                document.getElementById("gameOutput").style.visibility = "visible";
+                                            }
                                         } else {
                                             samplesGenerated();
                                             window.setTimeout(genMultiple(), 1000);

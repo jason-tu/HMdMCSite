@@ -63,9 +63,8 @@ var dbName = "LodeRunner";
 
 function init()
 {
-	var screenSize = getScreenSize();
-	screenX1 = screenSize.x;
-	screenY1 = screenSize.y;
+	screenX1 = document.getElementById("gameOutputTab").offsetWidth;
+	screenY1 = document.getElementById("gameOutputTab").offsetHeight;
 
 	canvasReSize();
 	createStage();
@@ -106,10 +105,6 @@ function canvasReSize()
 	canvas.height = canvasY;
 
 	//Set canvas top left position
-	var left = ((screenX1 - canvasX)/2|0),
-		top  = ((screenY1 - canvasY)/2|0);
-	canvas.style.left = (left>0?left:0) + "px";
-	canvas.style.top =  (top>0?top:0) + "px";
 	canvas.style.position = "absolute";
 
 	tileW = BASE_TILE_X; //tileW and tileH for detection so don't change scale
@@ -147,7 +142,6 @@ function setBackground()
 
 function showCoverPage()
 {
-	menuIconDisable(1);
 	clearIdleDemoTimer();
 	mainStage.removeAllChildren();
 	mainStage.addChild(titleBackground); //colorful background
@@ -243,7 +237,6 @@ function checkIdleTime(maxIdleTime)
 
 function selectGame(showDataMsg)
 {
-	getLastPlayInfo();
 	playData2GameVersionMenuId();
 	document.onkeydown = handleKeyDown;
 	document.onkeyup = handleKeyUp;
@@ -1048,7 +1041,6 @@ function removeCycScreen()
 function newLevel(r)
 {
 	changingLevel = 1;
-	//menuIconDisable(0);
 	addCycScreen();
 
 	//close screen
@@ -1084,41 +1076,6 @@ function closingScreen(r)
 		addCycScreen();
 		setTimeout(function() { openingScreen(cycDiff*2);}, 5);
 	}
-}
-
-function menuIconEnable()
-{
-	mainMenuIconObj.enable();
-	if(playMode == PLAY_MODERN || playMode == PLAY_DEMO) {
-		selectIconObj.enable();
-	}
-	if(playMode == PLAY_MODERN) demoIconObj.enable();
-	if(playMode != PLAY_EDIT) {
-		soundIconObj.enable();
-		soundIconObj.updateSoundImage();
-		repeatActionIconObj.enable();
-		themeColorObj.enable();
-	} else {
-		if(!editInNarrowScreen) themeColorObj.enable();
-	}
-	infoIconObj.enable();
-	helpIconObj.enable();
-	themeIconObj.enable();
-}
-
-function menuIconDisable(hidden)
-{
-	mainMenuIconObj.disable(hidden);
-	if(playMode == PLAY_MODERN) {
-		selectIconObj.disable(hidden);
-	}
-	demoIconObj.disable(hidden);
-	soundIconObj.disable(hidden);
-	infoIconObj.disable(hidden);
-	helpIconObj.disable(hidden);
-	repeatActionIconObj.disable(hidden);
-	themeIconObj.disable(hidden);
-	themeColorObj.disable(hidden);
 }
 
 var showStartTipsMsg = 1;
@@ -1173,7 +1130,6 @@ function showHelpMenu()
 
 function initForPlay()
 {
-	menuIconEnable();
 	showDataMsg();
 }
 
@@ -1330,7 +1286,6 @@ function mainTick(event)
 			drawLife();
 			if(runnerLife <= 0) {
 				gameOverAnimation();
-				menuIconDisable(1);
 				if(playMode == PLAY_CLASSIC) clearClassicInfo();
 				gameState = GAME_OVER_ANIMATION;
 			} else {
@@ -1478,7 +1433,6 @@ function mainTick(event)
 		break;
 	case GAME_WIN:
 		scoreInfo = {s:curScore, l: levelData.length, w:1 }; //winner
-		menuIconDisable(1);
 		clearClassicInfo();
 		showScoreTable(playData, scoreInfo , function() { showCoverPage();});
 		gameState = GAME_WAITING;
