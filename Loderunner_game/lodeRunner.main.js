@@ -69,14 +69,13 @@ function init()
 	canvasReSize();
 	createStage();
 	setBackground();
+
 	initAutoDemoRnd(); //init auto demo random levels
-
 	initMenuVariable();  //init menu variable
-
 	initDemoData(); //get demo data from server
-
 	////genUserLevel(MAX_EDIT_LEVEL); //for debug only
 	getEditLevelInfo(); //load edit levels
+
 	showLoadingPage(); //preload function
 }
 
@@ -149,7 +148,7 @@ function showCoverPage()
 	mainStage.addChild(signetBitmap);
 	mainStage.addChild(remakeBitmap);
 	mainStage.update();
-	waitIdleDemo(3000);
+	waitIdleDemo(300000);
 }
 
 var idleTimer=null, startIdleTime;
@@ -1158,6 +1157,7 @@ function beginPlay()
 	changingLevel = 0;
 
 	if(recordMode) initRecordVariable();
+
 	if(playMode == PLAY_AUTO || playMode == PLAY_DEMO || playMode == PLAY_DEMO_ONCE) {
 		initPlayDemo();
 		if(playMode == PLAY_DEMO || playMode == PLAY_DEMO_ONCE) initForPlay();
@@ -1258,7 +1258,6 @@ function mainTick(event)
 
 	switch(gameState) {
 	case GAME_START:
-		countAutoDemoTimer();
 		if(keyAction != ACT_STOP && keyAction != ACT_UNKNOWN) {
 			disableAutoDemoTimer();
 			gamepadClearId();

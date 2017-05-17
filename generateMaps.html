@@ -158,11 +158,11 @@
                     }
                 }
 
-                if (Obs != true && depth != lookahead) { //if this state hasnt been observed and this is NOT the top level in the lookahead
+                if (Obs !== true && depth !== lookahead) { //if this state hasnt been observed and this is NOT the top level in the lookahead
 
                     BackTracks++; //then return an error
                     return 99;
-                } else if (Obs != true && depth == lookahead) { //if we havent observed this state, and it IS the first step, then break out of
+                } else if (Obs !== true && depth == lookahead) { //if we havent observed this state, and it IS the first step, then break out of
                     break; //of the loop, where we will return a random tile
                 } else if (Obs == true) { //if we have observed this state, then generate the next tile
 
@@ -308,7 +308,7 @@
 
                     //if it fails, and we are using a fallback strategy, try to generate with the second config matrix
                     //if a good tile is generated with first method, track it
-                    if (id != 100) {
+                    if (id !== 100) {
                         NumberTilesWithEachMatrix[0]++;
                     }
 
@@ -317,7 +317,7 @@
 
                         id = GenerateTopLevelTile(PossibleTiles, h, j, currRow, WhichDepMat, lookahead, WhichDepMat);
                         //track how many tiles generated with fallback method
-                        if (id != 100) {
+                        if (id !== 100) {
                             NumberTilesWithEachMatrix[WhichDepMat]++;
                             break;
                         } else {
@@ -490,7 +490,7 @@
                         }
                         textOutput += aux + "<br>";
                         //createNewParagraph(aux, "textOutputTab");
-
+                        document.getElementById("gameOutputTab").innerHTML = "";
                         if (gameName == "superMarioBros") {
                             createMarioGame(aux);
                         } else if (gameName == "loderunner") {
@@ -1089,8 +1089,8 @@
 
         var imageX = 0;
         var imageY = 0;
-        var canvas;
-        var canvasCTX;
+        var canvasImage;
+        var canvasImageCTX;
         var marioImages = new Array();
         var loderunnerImages = new Array();
         var kidIcarusImages = new Array();
@@ -1100,10 +1100,10 @@
         function createNewImage(game, tile) {
             if (imageX == 0 && imageY == 0) {
                 startTime = Date.now();
-                canvas = document.createElement("canvas");
-                canvasCTX = canvas.getContext("2d");
-                canvas.width = mapWidth * 16;
-                canvas.height = mapHeight * 16;
+                canvasImage = document.createElement("canvas");
+                canvasImageCTX = canvasImage.getContext("2d");
+                canvasImage.width = mapWidth * 16;
+                canvasImage.height = mapHeight * 16;
             } else if (imageX == mapWidth && imageY + 1 == mapHeight) {
                 var imageFieldset = document.createElement("fieldset");
                 imageFieldset.className= "scheduler-border";
@@ -1116,7 +1116,7 @@
                 imageDescription.innerHTML = "Height: " + mapHeight + ", Width: " + mapWidth + ", Row Splits: " + NumberOfRowSplits + ", Network Structure: " + document.getElementById("networkStructure").value + "<br><br>";
                 imageFieldset.appendChild(imageDescription);
 
-                imageFieldset.appendChild(canvas);
+                imageFieldset.appendChild(canvasImage);
                 document.getElementById("graphicOutputTab").appendChild(imageFieldset);
                 document.getElementById("graphicOutputTab").appendChild(document.createElement("br"));
                 imageX = 0;
@@ -1162,7 +1162,7 @@
                 } else {
                     img = marioImages[13];
                 }
-                canvasCTX.drawImage(img, imageX * 16, imageY * 16);
+                canvasImageCTX.drawImage(img, imageX * 16, imageY * 16);
                 imageX++;
             } else if (game == "loderunner") {
 
@@ -1184,7 +1184,7 @@
                 } else {
                     img = loderunnerImages[7];
                 }
-                canvas.getContext("2d").drawImage(img, imageX * 16, imageY * 16);
+                canvasImageCTX.drawImage(img, imageX * 16, imageY * 16);
                 imageX++;
 
             } else if (game == "kidIcarus") {
@@ -1213,7 +1213,7 @@
                 } else {
                     img = kidIcarusImages[11];
                 }
-                canvas.getContext("2d").drawImage(img, imageX * 16, imageY * 16);
+                canvasImageCTX.drawImage(img, imageX * 16, imageY * 16);
                 imageX++;
 
             }
@@ -1514,8 +1514,6 @@
                         ]
                     });
 
-                    player.pos[0] = level.playerPos[0];
-                    player.pos[1] = level.playerPos[1];
                     vX = 0;
 
                     //interactable terrain
@@ -1603,71 +1601,111 @@
                     // Flagpole makes me feel satisfied. 7 is arbitrary.
                     level.putFlagpole(lines[lines.length - 2].length - 7);
 
-                    music.underground.pause();
                     // music.overworld.currentTime = 0;
-                    music.overworld.play();
+                    if (music != null) {
+                        music.overworld.play();
+                    }
                 };
 
 
                 document.getElementById("gameOutput").onclick = function() {
                     var script = document.createElement("script");
                     script.src = "js/game.js";
+                    script.onload = function() {
+                        addCanvas();
+
+                        Mario.oneone();
+
+                        player.pos[0] = level.playerPos[0];
+                        player.pos[1] = level.playerPos[1];
+                    }
                     document.head.appendChild(script);
-
-                    Mario.oneone();
-
-                    document.getElementById("gameOutputTab").innerHTML = "";
 
                     document.getElementById("gameOutput").onclick = function() {
                     };
                 }
-                document.getElementById("gameOutput").style.cursor = "default";
 
                 document.getElementById("options").addEventListener("click", pauseMario, false);
                 document.getElementById("textOutput").addEventListener("click", pauseMario, false);
                 document.getElementById("graphicOutput").addEventListener("click", pauseMario, false);
-                document.getElementById("gameOutputTab").addEventListener("click", pauseMario, false);
+                document.getElementById("gameOutput").addEventListener("click", playMario, false);
 
 
                 function pauseMario() {
                     // TODO: Mute ALL sounds.
                     if (music != null) {
+                        player.noInput = true;
                         music.overworld.pause();
                     }
                 }
+                function playMario() {
+                    // TODO: Mute ALL sounds.
+                    if (music != null && gameName == "superMarioBros") {
+                        player.noInput = false;
+                        music.overworld.play();
+                    }
+                }
+
+                // Add canvas back?
             }
         }
 
+        var classicData = [];
+        var loadedLoderunner = false;
         function createLoderunnerGame(string) {
             mapDataSize++;
             mapData += string + "\n";
 
             if (mapDataSize == mapHeight) {
-                $.when(
-                    $.getScript( "/loderunner_game/lib/preloadjs-0.6.2.min.js" ),
-                    $.getScript( "/loderunner_game/lib/soundjs-0.6.2.min.js" ),
-                    $.getScript( "/loderunner_game/lib/tweenjs-0.6.2.min.js" ),
-                    $.getScript( "/loderunner_game/lib/easeljs-0.7.1.min.js" ),
-                    $.getScript( "/loderunner_game/flag32Id.js" ),
-                    $.getScript( "/loderunner_game/lodeRunner.gameVerName.js" ),
-                    $.getScript( "/loderunner_game/lodeRunner.v.classic.js" ),
-                    $.getScript( "/loderunner_game/lodeRunner.storage.js" ),
-                    $.getScript( "/loderunner_game/lodeRunner.def.js" ),
+                if (!loadedLoderunner) {
+                    $.when(
+                        $.getScript( "/loderunner_game/lib/preloadjs-0.6.2.min.js" ),
+                        $.getScript( "/loderunner_game/lib/soundjs-0.6.2.min.js" ),
+                        $.getScript( "/loderunner_game/lib/tweenjs-0.6.2.min.js" ),
+                        $.getScript( "/loderunner_game/lib/easeljs-0.7.1.min.js" ),
+                        $.getScript( "/loderunner_game/flag32Id.js" ),
+                        $.getScript( "/loderunner_game/lodeRunner.gameVerName.js" ),
+                        $.getScript( "/loderunner_game/lodeRunner.storage.js" ),
+                        $.getScript( "/loderunner_game/lodeRunner.def.js" ),
 
-                    $.Deferred(function( deferred ){
-                        $( deferred.resolve );
-                    })
-                ).done(function(){
+                        $.Deferred(function( deferred ){
+                            $( deferred.resolve );
+                        })
+                    ).done(function(){
 
-                    // modify map (lodeRunner.v.classic.js) here
+                        setupLoderunnerPart1();
+
+                    });
+                } else {
                     var newMapFormat = convertMap(mapData);
                     mapData = "";
-                    classicData[0] = newMapFormat;
+                    if (classicData.length > 100) {
+                        classicData = new Array();
+                    }
+                    classicData.push(newMapFormat);
+                    if (typeof gameState != "undefined") {
+                        gameState = GAME_START;
+                    }
+                }
+            }
+            function setupLoderunnerPart1() {
+                // modify map (lodeRunner.v.classic.js) here
+                var newMapFormat = convertMap(mapData);
+                mapData = "";
+                if (classicData.length > 100) {
+                    classicData = new Array();
+                }
+                classicData.push(newMapFormat);
+                if (typeof gameState != "undefined") {
+                    gameState = GAME_START;
+                }
 
-                    NO_OF_TILES_X = mapWidth;
-                    NO_OF_TILES_Y = mapHeight;
-                    BASE_SCREEN_X = (NO_OF_TILES_X * BASE_TILE_X);
-                    BASE_SCREEN_Y = (NO_OF_TILES_Y * BASE_TILE_Y + GROUND_TILE_Y + TEXT_TILE_Y);
+                console.log(classicData);
+
+                NO_OF_TILES_X = mapWidth;
+                NO_OF_TILES_Y = mapHeight;
+                BASE_SCREEN_X = (NO_OF_TILES_X * BASE_TILE_X);
+                BASE_SCREEN_Y = (NO_OF_TILES_Y * BASE_TILE_Y + GROUND_TILE_Y + TEXT_TILE_Y);
 
                     $.when(
                         $.getScript( "/loderunner_game/lodeRunner.key.js" ),
@@ -1690,22 +1728,38 @@
                             $( deferred.resolve );
                         })
                     ).done(function(){
-                        document.getElementById("gameOutputTab").innerHTML = "";
-                        var div = document.createElement("div");
-                        div.className = "canvas";
-                        var canvas = document.createElement("canvas");
-                        canvas.id = "canvas";
-                        canvas.style.width = "960";
-                        canvas.style.height = "400";
-                        div.appendChild(canvas);
-                        document.getElementById("gameOutputTab").appendChild(div);
-                        init();
-
-                        document.getElementById("gameOutput").style.cursor = "default";
-
+                            setupLoderunnerPart2();
                     });
+            }
+            function setupLoderunnerPart2() {
+                var canvasLoderunner = document.createElement("canvas");
+                canvasLoderunner.id = "canvas";
+                canvasLoderunner.style.width = "960";
+                canvasLoderunner.style.height = "400";
+                document.getElementById("gameOutputTab").appendChild(canvasLoderunner);
+                init();
 
-                });
+                document.getElementById("options").addEventListener("click", pauseLoderunner, false);
+                document.getElementById("textOutput").addEventListener("click", pauseLoderunner, false);
+                document.getElementById("graphicOutput").addEventListener("click", pauseLoderunner, false);
+                document.getElementById("gameOutput").addEventListener("click", playLoderunner, false);
+
+
+                function pauseLoderunner() {
+                    // TODO: Mute ALL sounds.
+                    if (gameName == "loderunner") {
+                            gameState = GAME_PAUSE;
+                        }
+                }
+                function playLoderunner() {
+                    // TODO: Mute ALL sounds.
+                    if (gameName == "loderunner") {
+                        gameState = GAME_RUNNING;
+                    }
+                }
+                mapDataSize = 0;
+                mapData = "";
+                loadedLoderunner = true;
             }
         }
 
@@ -2089,8 +2143,7 @@
                         <div class="row">
                             <div class="col-3">
                                 <fieldset class="scheduler-border" id="chooseAGame">
-                                    <legend class="scheduler-border">Choose a Game</legend>
-                                    <select class="form-control" id="formChooseAGame" onchange="gameChanged(this.value)">
+                                    <legend class="scheduler-border">Choose a Game</legend> <select class="form-control" id="formChooseAGame" onchange="gameChanged(this.value)">
                                         <option value="superMarioBros">
                                             Super Mario Bros
                                         </option>
@@ -2275,19 +2328,19 @@
 
 
                                     <div>
-                                        <button class="btn btn-primary btn-block" id="genMultiple" onclick="genMultipleHelp()" type="button">Train and Sample maps</button>
+                                        <button class="btn btn-primary btn-block" id="genMultiple" onclick="genMultiple()" type="button">Train and Sample maps</button>
                                     </div>
                                     <script>
                                     var numMaps;
                                     var numGenerated;
 
                                     // Note: There needs to be some sort of delay between these steps for some reason.
-                                    function genMultipleHelp() {
+                                    function genMultiple() {
                                         numMaps = document.getElementById("numMaps").value;
                                         numGenerated = 0;
-                                        genMultiple();
+                                        genMultiple1();
                                     }
-                                    function genMultiple() {
+                                    function genMultiple1() {
                                         samplingReady();
                                         window.setTimeout(genMultiple2, 1000);
                                     }
@@ -2296,12 +2349,16 @@
                                             // Stop.
                                             document.getElementById("textOutput").style.visibility = "visible";
                                             document.getElementById("graphicOutput").style.visibility = "visible";
-                                            if (gameName == "superMarioBros" || gameName == "loderunner") {
+                                            if (gameName == "superMarioBros") {
                                                 document.getElementById("gameOutput").style.visibility = "visible";
+                                            } else if (gameName == "loderunner") {
+                                                document.getElementById("gameOutput").style.visibility = "visible";
+                                            } else {
+                                                document.getElementById("gameOutput").style.visibility = "hidden";
                                             }
                                         } else {
                                             samplesGenerated();
-                                            window.setTimeout(genMultiple(), 1000);
+                                            window.setTimeout(genMultiple1(), 1000);
                                         }
                                     }
                                     </script>
@@ -2349,6 +2406,8 @@
 
 
                                 <p>Mario Game Engine: <a href="https://github.com/reruns/mario">GitHub</a></p>
+
+
                                 <p>Loderunner Game Engine: <a href="https://github.com/SimonHung/LodeRunner_TotalRecall">GitHub</a></p>
                             </div>
 
@@ -2363,6 +2422,7 @@
             </div>
         </div>
     </section>
+
 
     <footer>
         Drexel 2016

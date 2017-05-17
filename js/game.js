@@ -9,27 +9,37 @@ var requestAnimFrame = (function(){
     };
 })();
 
-//create the canvas
+
 var canvas = document.createElement("canvas");
 var ctx = canvas.getContext('2d');
 var updateables = [];
 var fireballs = [];
 var player = new Mario.Player([0,0]);
 
-//we might have to get the size and calculate the scaling
-//but this method should let us make it however big.
-//Cool!
-//TODO: Automatically scale the game to work and look good on widescreen.
-//TODO: fiddling with scaled sprites looks BETTER, but not perfect. Hmm.
-canvas.width = 762;
-canvas.height = 720;
-ctx.scale(3,3);
-canvas.style.padding = 0;
-canvas.style.margin = "auto";
-canvas.style.display = "block";
-canvas.style.width = "800px";
-document.getElementById("gameOutputTab").appendChild(canvas);
-//document.body.appendChild(canvas);
+function addCanvas() {
+  console.log("Adding canvas");
+  //create the canvas
+  document.getElementById("gameOutputTab").innerHTML = "";
+  canvas = document.createElement("canvas");
+  ctx = canvas.getContext('2d');
+  updateables = [];
+  fireballs = [];
+  player = new Mario.Player([0,0]);
+
+  //we might have to get the size and calculate the scaling
+  //but this method should let us make it however big.
+  //Cool!
+  //TODO: Automatically scale the game to work and look good on widescreen.
+  //TODO: fiddling with scaled sprites looks BETTER, but not perfect. Hmm.
+  canvas.width = 762;
+  canvas.height = 720;
+  ctx.scale(3,3);
+  canvas.style.padding = 0;
+  canvas.style.margin = "auto";
+  canvas.style.display = "block";
+  canvas.style.width = "800px";
+  document.getElementById("gameOutputTab").appendChild(canvas);
+}
 
 //viewport
 var vX = 0,

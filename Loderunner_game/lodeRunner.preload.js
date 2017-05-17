@@ -355,7 +355,7 @@ function preloadResource()
 		remakeBitmap.setTransform(x, y, tileScale, tileScale); //x,y, scaleX, scaleY
 		remakeBitmap.rotation = -5;
 		remakeBitmap.set({alpha:0.6});
-		createjs.Tween.get(remakeBitmap).set({alpha:0.6}).to({alpha:1}, 800).call(preloadComplet);
+		createjs.Tween.get(remakeBitmap).set({alpha:0.6}).to({alpha:1}, 800).call(preloadComplete);
 	}
 
 	function createHelpObj()
@@ -367,12 +367,12 @@ function preloadResource()
 		helpObj = new helpMenuClass(mainStage, helpBitmap, editHelpBitmap, tileScale);
 	}
 
-	function preloadComplet()
+	function preloadComplete()
 	{
 		createHelpObj();
 		getFirstPlayInfo();
 		createjs.Ticker.off("tick", preloadTicker); //remove ticker of cover page
-		waitIdleDemo(4000); //wait user key or show demo level
+		waitIdleDemo(400000); //wait user key or show demo level
 	}
 }
 
