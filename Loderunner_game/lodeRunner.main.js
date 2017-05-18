@@ -74,7 +74,7 @@ function init()
 	initMenuVariable();  //init menu variable
 	initDemoData(); //get demo data from server
 	////genUserLevel(MAX_EDIT_LEVEL); //for debug only
-	getEditLevelInfo(); //load edit levels
+	//getEditLevelInfo(); //load edit levels
 
 	showLoadingPage(); //preload function
 }
@@ -277,7 +277,7 @@ function startGame(noCycle)
 
 	switch(playMode) {
 	case PLAY_CLASSIC:
-		getClassicInfo();
+		//getClassicInfo();
 		levelMap = levelData[curLevel-1];
 		if(curLevel >= levelData.length && (passedLevel+1) >= levelData.length) {
 			loadEndingMusic(); //6/15/2015, music prepare for winner
@@ -1164,7 +1164,7 @@ function beginPlay()
 	} else {
 
 		if(playerName == "" || playerName.length <= 1) {
-			inputPlayerName(mainStage, showHelpMenu);
+			//inputPlayerName(mainStage, showHelpMenu);
 		} else {
 			showHelpMenu();
 		}
@@ -1181,7 +1181,7 @@ function incLevel(incValue, passed)
 	var wrap = 0;
 	curLevel += incValue;
 	while (curLevel > levelData.length) { curLevel-= levelData.length; wrap = 1; }
-	if(playMode == PLAY_CLASSIC) setClassicInfo(passed);
+	//if(playMode == PLAY_CLASSIC) setClassicInfo(passed);
 	if(playMode == PLAY_MODERN) setModernInfo();
 
 	return wrap;
@@ -1191,7 +1191,7 @@ function decLevel(decValue)
 {
 	curLevel -= decValue
 	while (curLevel <= 0) curLevel += levelData.length;
-	if(playMode == PLAY_CLASSIC) setClassicInfo(0);
+	//if(playMode == PLAY_CLASSIC) setClassicInfo(0);
 	if(playMode == PLAY_MODERN) setModernInfo();
 }
 
@@ -1285,12 +1285,12 @@ function mainTick(event)
 			drawLife();
 			if(runnerLife <= 0) {
 				gameOverAnimation();
-				if(playMode == PLAY_CLASSIC) clearClassicInfo();
+				//if(playMode == PLAY_CLASSIC) clearClassicInfo();
 				gameState = GAME_OVER_ANIMATION;
 			} else {
 				setTimeout(function() {gameState = GAME_NEW_LEVEL; }, 500);
 				gameState = GAME_WAITING;
-				if(playMode == PLAY_CLASSIC) setClassicInfo(0);
+				//if(playMode == PLAY_CLASSIC) setClassicInfo(0);
 			}
 			break;
 		case PLAY_DEMO:
@@ -1328,7 +1328,7 @@ function mainTick(event)
 			scoreInfo = {s:curScore, l: passedLevel+1 };
 		}
 
-		showScoreTable(playData, scoreInfo , function() { showCoverPage();});
+		//showScoreTable(playData, scoreInfo , function() { showCoverPage();});
 		gameState = GAME_WAITING;
 		return;
 	case GAME_FINISH:
@@ -1432,7 +1432,7 @@ function mainTick(event)
 		break;
 	case GAME_WIN:
 		scoreInfo = {s:curScore, l: levelData.length, w:1 }; //winner
-		clearClassicInfo();
+		//clearClassicInfo();
 		showScoreTable(playData, scoreInfo , function() { showCoverPage();});
 		gameState = GAME_WAITING;
 		return;

@@ -11,58 +11,58 @@ function moveRunner()
 	var xOffset = runner.pos.xOffset;
 	var y = runner.pos.y;
 	var yOffset = runner.pos.yOffset;
-	
+
 	var curState;
 	var curToken, nextToken;
-	
+
 	curToken = map[x][y].base;
-	
+
 	if ( curToken == LADDR_T || (curToken == BAR_T && yOffset == 0) ) { //ladder & bar
 		curState = STATE_OK_TO_MOVE; //ok to move (on ladder or bar)
-	} else if (yOffset < 0) {  //no ladder && yOffset < 0 ==> falling 
+	} else if (yOffset < 0) {  //no ladder && yOffset < 0 ==> falling
 		curState = STATE_FALLING;
 	} else if (y < maxTileY) { //no laddr && y < maxTileY && yOffset >= 0
 
-		nextToken = map[x][y+1].act; 
-		
+		nextToken = map[x][y+1].act;
+
 		switch (true) {
 		case (nextToken == EMPTY_T):
 			curState = STATE_FALLING;
 			break;
 		case ( nextToken == BLOCK_T || nextToken == LADDR_T || nextToken == SOLID_T):
 			curState = STATE_OK_TO_MOVE;
-			break;	
+			break;
 		case ( nextToken == GUARD_T):
 			curState = STATE_OK_TO_MOVE;
 			break;
 		default:
 			curState = STATE_FALLING;
-			break;	
+			break;
 		}
-	} else { // no laddr && y == maxTileY 
+	} else { // no laddr && y == maxTileY
 		curState = STATE_OK_TO_MOVE;
 	}
-		
+
 	if ( curState == STATE_FALLING ) {
 		stayCurrPos = ( y >= maxTileY ||
 			(nextToken = map[x][y+1].act) == BLOCK_T ||
 			 nextToken == SOLID_T || nextToken == GUARD_T);
-		
+
 		runnerMoveStep(ACT_FALL, stayCurrPos);
 		return;
 	}
-	
+
 	/****** Check Key Action ******/
-	
+
 	var moveStep = ACT_STOP;
 	var stayCurrPos = 1;
-	
+
 	switch(keyAction) {
 	case ACT_UP:
 		stayCurrPos = ( y <= 0 ||
 			 ( nextToken = map[x][y-1].act) == BLOCK_T ||
 			   nextToken == SOLID_T || nextToken == TRAP_T );
-			
+
 		if (y > 0 && map[x][y].base != LADDR_T && yOffset < H4 && yOffset > 0 && map[x][y+1].base == LADDR_T)
 		{
 			stayCurrPos = 1;
@@ -70,25 +70,25 @@ function moveRunner()
 		} else
 		if (!( map[x][y].base != LADDR_T &&
 			(yOffset <= 0 || map[x][y+1].base != LADDR_T) ||
-			(yOffset <= 0 &&  stayCurrPos ) ) 
+			(yOffset <= 0 &&  stayCurrPos ) )
 		) {
 			moveStep = ACT_UP;
-		} 
-			
- 		break;	
+		}
+
+ 		break;
 	case ACT_DOWN:
 		stayCurrPos = ( y >= maxTileY ||
 			(nextToken = map[x][y+1].act) == BLOCK_T ||
-			 nextToken == SOLID_T);	
-			
+			 nextToken == SOLID_T);
+
 		if (!(yOffset >= 0 && stayCurrPos))
-			moveStep = ACT_DOWN;	
+			moveStep = ACT_DOWN;
 		break;
 	case ACT_LEFT:
 		stayCurrPos = ( x <= 0 ||
 			(nextToken = map[x-1][y].act) == BLOCK_T ||
-			 nextToken == SOLID_T || nextToken == TRAP_T); 
-		
+			 nextToken == SOLID_T || nextToken == TRAP_T);
+
 		if (!(xOffset <= 0 && stayCurrPos))
 			moveStep = ACT_LEFT;
 		break;
@@ -96,7 +96,7 @@ function moveRunner()
 		stayCurrPos = ( x >= maxTileX	||
 			(nextToken = map[x+1][y].act) == BLOCK_T ||
 			 nextToken == SOLID_T || nextToken == TRAP_T);
-			
+
 		if (!(xOffset >= 0 && stayCurrPos))
 			moveStep = ACT_RIGHT;
 		break;
@@ -106,12 +106,12 @@ function moveRunner()
 			runnerMoveStep(keyAction, stayCurrPos);
 			digHole(keyAction);
 		} else {
-			runnerMoveStep(ACT_STOP, stayCurrPos);	
+			runnerMoveStep(ACT_STOP, stayCurrPos);
 		}
 		keyAction = ACT_STOP;
-		return;	
-	}		
-	runnerMoveStep(moveStep, stayCurrPos);	
+		return;
+	}
+	runnerMoveStep(moveStep, stayCurrPos);
 }
 
 function runnerMoveStep(action, stayCurrPos )
@@ -123,20 +123,20 @@ function runnerMoveStep(action, stayCurrPos )
 
 	var curToken, nextToken, centerX, centerY;
 	var curShape, newShape;
-	
+
 	curShape = newShape = runner.shape;
-	
+
 	centerX = centerY = ACT_STOP;
-	
+
 	switch(action)	{
-	case ACT_DIG_LEFT:		
-	case ACT_DIG_RIGHT:	
+	case ACT_DIG_LEFT:
+	case ACT_DIG_RIGHT:
 		xOffset = 0;
-		yOffset = 0;	
-		break;	
+		yOffset = 0;
+		break;
 	case ACT_UP:
 	case ACT_DOWN:
-	case ACT_FALL:	
+	case ACT_FALL:
 		if ( xOffset > 0 ) centerX = ACT_LEFT;
 		else if (xOffset < 0) centerX = ACT_RIGHT;
 		break;
@@ -146,14 +146,14 @@ function runnerMoveStep(action, stayCurrPos )
 		else if (yOffset < 0) centerY = ACT_DOWN;
 		break;
 	}
-	
+
 	curToken = map[x][y].base;
-	
+
 	if ( action == ACT_UP ) {
 		yOffset -= yMove;
-		
+
 		if(stayCurrPos && yOffset < 0) yOffset = 0; //stay on current position
-		else if(yOffset < -H2) { //move to y-1 position 
+		else if(yOffset < -H2) { //move to y-1 position
 			if ( curToken == BLOCK_T || curToken == HLADR_T ) curToken = EMPTY_T; //in hole or hide laddr
 			map[x][y].act = curToken; //runner move to [x][y-1], so set [x][y].act to previous state
 			y--;
@@ -162,29 +162,29 @@ function runnerMoveStep(action, stayCurrPos )
 		}
 		newShape = "runUpDn";
 	}
-	
+
 	if ( centerY == ACT_UP ) {
 		yOffset -= yMove;
-		if( yOffset < 0) yOffset = 0; //move to center Y	
+		if( yOffset < 0) yOffset = 0; //move to center Y
 	}
-	
+
 	if ( action == ACT_DOWN || action == ACT_FALL) {
 		var holdOnBar = 0;
 		if(curToken == BAR_T) {
 			if( yOffset < 0) holdOnBar = 1;
 			else {
-				//when runner with bar and press down will into falling state 
+				//when runner with bar and press down will into falling state
 				// except "laddr" or "guard" at below, 11/25/2016
-				if(action == ACT_DOWN && y < maxTileY && 
-					map[x][y+1].act != LADDR_T && map[x][y+1].act != GUARD_T) 
+				if(action == ACT_DOWN && y < maxTileY &&
+					map[x][y+1].act != LADDR_T && map[x][y+1].act != GUARD_T)
 				{
 					action = ACT_FALL;
 				}
 			}
 		}
-		
+
 		yOffset += yMove;
-		
+
 		if(holdOnBar == 1 && yOffset >= 0) {
 			yOffset = 0; //fall and hold on bar
 			action = ACT_FALL_BAR;
@@ -197,11 +197,11 @@ function runnerMoveStep(action, stayCurrPos )
 			yOffset = yOffset - tileH;
 			if(map[x][y].act == GUARD_T && guardAlive(x,y)) setRunnerDead(); //collision
 		}
-		
-		if(action == ACT_DOWN) { 
+
+		if(action == ACT_DOWN) {
 			newShape = "runUpDn";
 		} else { //ACT_FALL or ACT_FALL_BAR
-			
+
 			if (y < maxTileY && map[x][y+1].act == GUARD_T) { //over guard
 				//don't collision
 				var id = getGuardId(x, y+1);
@@ -214,21 +214,21 @@ function runnerMoveStep(action, stayCurrPos )
 			} else {
 				if(runner.lastLeftRight == ACT_LEFT) newShape = "fallLeft";
 				else newShape = "fallRight";
-				
+
 			}
 		}
 	}
-	
+
 	if ( centerY == ACT_DOWN ) {
 		yOffset += yMove;
 		if ( yOffset > 0 ) yOffset = 0; //move to center Y
 	}
-	
+
 	if ( action == ACT_LEFT) {
 		xOffset -= xMove;
 
 		if(stayCurrPos && xOffset < 0) xOffset = 0; //stay on current position
-		else if ( xOffset < -W2) { //move to x-1 position 
+		else if ( xOffset < -W2) { //move to x-1 position
 			if(curToken == BLOCK_T || curToken == HLADR_T) curToken = EMPTY_T; //in hole or hide laddr
 			map[x][y].act = curToken; //runner move to [x-1][y], so set [x][y].act to previous state
 			x--;
@@ -238,17 +238,17 @@ function runnerMoveStep(action, stayCurrPos )
 		if(curToken == BAR_T) newShape = "barLeft";
 		else newShape = "runLeft";
 	}
-	
+
 	if ( centerX == ACT_LEFT ) {
 		xOffset -= xMove;
 		if ( xOffset < 0) xOffset = 0; //move to center X
 	}
-	
+
 	if ( action == ACT_RIGHT ) {
 		xOffset += xMove;
 
 		if(stayCurrPos && xOffset > 0) xOffset = 0; //stay on current position
-		else if ( xOffset > W2) { //move to x+1 position 
+		else if ( xOffset > W2) { //move to x+1 position
 			if(curToken == BLOCK_T || curToken == HLADR_T) curToken = EMPTY_T; //in hole or hide laddr
 			map[x][y].act = curToken; //runner move to [x+1][y], so set [x][y].act to previous state
 			x++;
@@ -258,12 +258,12 @@ function runnerMoveStep(action, stayCurrPos )
 		if(curToken == BAR_T) newShape = "barRight";
 		else newShape = "runRight";
 	}
-	
+
 	if ( centerX == ACT_RIGHT ) {
 		xOffset += xMove;
 		if ( xOffset > 0) xOffset = 0; //move to center X
 	}
-	
+
 	if(action == ACT_STOP ) {
 		if(runner.action == ACT_FALL) {
 			soundStop(soundFall);
@@ -276,7 +276,7 @@ function runnerMoveStep(action, stayCurrPos )
 	} else {
 		runner.sprite.x = (x * tileW + xOffset) * tileScale | 0;
 		runner.sprite.y = (y * tileH + yOffset) * tileScale | 0;
-		runner.pos = { x:x, y:y, xOffset:xOffset, yOffset:yOffset};	
+		runner.pos = { x:x, y:y, xOffset:xOffset, yOffset:yOffset};
 		if(curShape != newShape) {
 			runner.sprite.gotoAndPlay(newShape);
 			runner.shape = newShape;
@@ -294,17 +294,17 @@ function runnerMoveStep(action, stayCurrPos )
 		runner.action = action;
 	}
 	map[x][y].act = RUNNER_T;
-	
+
 	//show trap tile if runner fall into the tile, 9/12/2015
 	if(map[x][y].base == TRAP_T) map[x][y].bitmap.set({alpha:0.5}); //show trap tile
-	
-	// Check runner to get gold (MAX MOVE MUST < H4 & W4) 
+
+	// Check runner to get gold (MAX MOVE MUST < H4 & W4)
 	if( map[x][y].base == GOLD_T &&
-		((!xOffset && yOffset >= 0 && yOffset < H4) || 
-		 (!yOffset && xOffset >= 0 && xOffset < W4) || 
+		((!xOffset && yOffset >= 0 && yOffset < H4) ||
+		 (!yOffset && xOffset >= 0 && xOffset < W4) ||
 		 (y < maxTileY && map[x][y+1].base == LADDR_T && yOffset < H4) // gold above laddr
 		)
-	  )  
+	  )
 	{
 		removeGold(x,y);
 		themeSoundPlay("getGold");
@@ -312,13 +312,13 @@ function runnerMoveStep(action, stayCurrPos )
 		//debug("gold = " + goldCount);
 		if(playMode == PLAY_CLASSIC || playMode == PLAY_AUTO || playMode == PLAY_DEMO) {
 			drawScore(SCORE_GET_GOLD);
-		} else {	
+		} else {
 			//for modern mode , edit mode
-			drawGold(1); //get gold 
+			drawGold(1); //get gold
 		}
 	}
 	//if(!goldCount && !goldComplete) showHideLaddr();
-	
+
 	//check collision with guard !
 	checkCollision(x, y);
 }
@@ -345,12 +345,12 @@ function removeGold(x,y)
 function addGold(x, y)
 {
 	var tile;
-	
+
 	map[x][y].base = GOLD_T;
 	tile = map[x][y].bitmap = getThemeBitmap("gold");
-	tile.setTransform(x * tileWScale, y * tileHScale,tileScale, tileScale); //x,y, scaleX, scaleY 
-	mainStage.addChild(tile); 
-	
+	tile.setTransform(x * tileWScale, y * tileHScale,tileScale, tileScale); //x,y, scaleX, scaleY
+	mainStage.addChild(tile);
+
 	moveSprite2Top(); //reset runner, guard & fill hole object order
 }
 
@@ -378,21 +378,21 @@ function checkCollision(runnerX, runnerY)
 
 	switch(true) {
 	case ( runnerY > 0 && map[runnerX][runnerY-1].act == GUARD_T):
-		x = runnerX; y = runnerY-1;	
-		//dbg = "UP";	
-		break;	
+		x = runnerX; y = runnerY-1;
+		//dbg = "UP";
+		break;
 	case ( runnerY < maxTileY && map[runnerX][runnerY+1].act == GUARD_T):
-		x = runnerX; y = runnerY+1;	
-		//dbg = "DN";	
-		break;	
+		x = runnerX; y = runnerY+1;
+		//dbg = "DN";
+		break;
 	case ( runnerX > 0 && map[runnerX-1][runnerY].act == GUARD_T):
-		x = runnerX-1; y = runnerY;	
-		//dbg = "LF";	
+		x = runnerX-1; y = runnerY;
+		//dbg = "LF";
 		break;
 	case ( runnerX < maxTileX && map[runnerX+1][runnerY].act== GUARD_T):
-		x = runnerX+1; y = runnerY;	
-		//dbg = "RT";	
-		break;	
+		x = runnerX+1; y = runnerY;
+		//dbg = "RT";
+		break;
 	}
 	//if( dbg != "NO") debug(dbg);
 	if( x >= 0) {
@@ -403,8 +403,8 @@ function checkCollision(runnerX, runnerY)
 		if(guard[i].action != ACT_REBORN) { //only guard alive need check collection
 			//var dw = Math.abs(runner.sprite.x - guard[i].sprite.x);
 			//var dh = Math.abs(runner.sprite.y - guard[i].sprite.y);
-			
-      //change detect method ==> don't depend on scale 
+
+      //change detect method ==> don't depend on scale
 			var runnerPosX = runner.pos.x*tileW+runner.pos.xOffset;
 			var runnerPosY = runner.pos.y*tileH+runner.pos.yOffset;
 			var guardPosX = guard[i].pos.x*tileW+guard[i].pos.xOffset;
@@ -412,7 +412,7 @@ function checkCollision(runnerX, runnerY)
 
 			var dw = Math.abs(runnerPosX - guardPosX);
 			var dh = Math.abs(runnerPosY - guardPosY);
-			
+
 			if( dw <= W4*3 && dh <= H4*3 ) {
 				setRunnerDead(); //07/04/2014
 				//debug("runner dead!");
@@ -427,26 +427,26 @@ function ok2Dig(nextMove)
 	var x = runner.pos.x;
 	var y = runner.pos.y;
 	var token, rc = 0;
-	
+
 	switch(nextMove) {
 	case ACT_DIG_LEFT:
-//		debug("[x-1][y+1] = " + map[x-1][y+1].act + " [x-1][y] = " + map[x-1][y].act + 
+//		debug("[x-1][y+1] = " + map[x-1][y+1].act + " [x-1][y] = " + map[x-1][y].act +
 //			  "[x-1][y].base = " + map[x-1][y].base );
- 	
+
 		if( y < maxTileY && x > 0 && map[x-1][y+1].act == BLOCK_T &&
 		    map[x-1][y].act == EMPTY_T && map[x-1][y].base != GOLD_T)
 			rc = 1;
 		break;
 	case ACT_DIG_RIGHT:
-//		debug("[x+1][y+1] = " + map[x+1][y+1].act + " [x+1][y] = " + map[x+1][y].act + 
+//		debug("[x+1][y+1] = " + map[x+1][y+1].act + " [x+1][y] = " + map[x+1][y].act +
 //			  "[x+1][y].base = " + map[x+1][y].base );
- 	
-		if( y < maxTileY && x < maxTileX && map[x+1][y+1].act == BLOCK_T && 
+
+		if( y < maxTileY && x < maxTileX && map[x+1][y+1].act == BLOCK_T &&
 		    map[x+1][y].act == EMPTY_T && map[x+1][y].base != GOLD_T)
 			rc = 1;
-		break;		
+		break;
 	}
-	
+
 	return rc;
 }
 
@@ -459,7 +459,7 @@ var digHoleRight =	[ 8, 9, 10, 10, 11, 12, 12, 13, 14, 14, 15 ];
 function processDigHole()
 {
 	if(curAiVersion < 3) return;
-	
+
 	if(++holeObj.curFrameIdx < holeObj.shapeFrame.length) {
 		// change frame
 		holeObj.sprite.gotoAndStop(holeObj.shapeFrame[holeObj.curFrameIdx]);
@@ -469,48 +469,48 @@ function processDigHole()
 	}
 }
 //========================
-// END NEW DIG METHOD 
+// END NEW DIG METHOD
 //========================
 
-var digTimeStart, shakeTimeStart;       //for debug       
+var digTimeStart, shakeTimeStart;       //for debug
 var fillHoleTimeStart, rebornTimeStart; //for debug
 function digHole(action)
 {
 	var x,y, holeShape;
-	
+
 	if(action == ACT_DIG_LEFT) {
 		x = runner.pos.x-1;
 		y = runner.pos.y;
-		
+
 		runner.shape = "digLeft";
 		holeShape = "digHoleLeft";
 
 	} else { //DIG RIGHT
-		
+
 		x = runner.pos.x+1;
 		y = runner.pos.y;
-		
+
 		runner.shape = "digRight";
 		holeShape = "digHoleRight";
 	}
-	
+
 	soundPlay(soundDig);
 	map[x][y+1].bitmap.set({alpha:0}); //hide block (replace with digging image)
 	runner.sprite.gotoAndPlay(runner.shape);
-		
+
 	holeObj.action = ACT_DIGGING;
 	holeObj.pos = { x: x, y: y };
 	holeObj.sprite.setTransform(x * tileWScale, y * tileHScale,tileScale, tileScale);
-	
+
 	digTimeStart = recordCount; //for debug
-	
+
 	if(curAiVersion < 3) {
 		holeObj.sprite.gotoAndPlay(holeShape);
 		holeObj.sprite.on("animationend", digComplete);
 	} else {
 		if(action == ACT_DIG_LEFT) holeShape = digHoleLeft;
-		else holeShape = digHoleRight; 
-			
+		else holeShape = digHoleRight;
+
 		holeObj.sprite.gotoAndStop(holeShape[0]);
 		holeObj.shapeFrame = holeShape;
 		holeObj.curFrameIdx = 0;
@@ -523,7 +523,7 @@ var DEBUG_DIG=0;
 function isDigging()
 {
 	var rc = 0;
-	
+
 	if(holeObj.action == ACT_DIGGING) {
 		var x = holeObj.pos.x, y = holeObj.pos.y;
 		if(map[x][y].act == GUARD_T) { //guard come close to the digging hole !
@@ -567,14 +567,14 @@ function stopDigging(x,y)
 	//(1) remove holeObj
 	holeObj.sprite.removeAllEventListeners ("animationend");
 	holeObj.action = ACT_STOP; //no digging
-	mainStage.removeChild(holeObj.sprite); 
+	mainStage.removeChild(holeObj.sprite);
 
 	//(2) fill hole
 	y++;
 	map[x][y].act = map[x][y].base; //BLOCK_T
 	assert(map[x][y].base == BLOCK_T, "fill hole != BLOCK_T");
 	map[x][y].bitmap.set({alpha:1}); //display block
-	
+
 	//(3) change runner shape
 	switch( runner.shape ) {
 	case "digLeft":
@@ -588,7 +588,7 @@ function stopDigging(x,y)
 		runner.action = ACT_STOP;
 		break;
 	}
-	
+
 	soundStop(soundDig); //stop sound of digging
 }
 
@@ -596,14 +596,14 @@ function digComplete()
 {
 	var x = holeObj.pos.x;
 	var y = holeObj.pos.y + 1;
-	
+
 	map[x][y].act = EMPTY_T;
 	holeObj.sprite.removeAllEventListeners ("animationend");
 	holeObj.action = ACT_STOP; //no digging
-	mainStage.removeChild(holeObj.sprite); 
-	
+	mainStage.removeChild(holeObj.sprite);
+
 	if(DEBUG_TIME) loadingTxt.text = "DigTime = " + (recordCount - digTimeStart);
-	
+
 	fillHole(x, y);
 }
 
@@ -611,10 +611,10 @@ var fillHoleObj = [];
 function fillHole(x, y)
 {
 	var fillSprite = new createjs.Sprite(holeData, "fillHole");
-	
+
 	fillSprite.pos = { x:x, y:y }; //save position 11/18/2014
 	fillSprite.setTransform(x * tileWScale, y * tileHScale, tileScale, tileScale);
-	
+
 	if(curAiVersion < 3) {
 		fillSprite.on("animationend", fillComplete, null, false, {obj:fillSprite} );
 		fillSprite.play();
@@ -623,9 +623,9 @@ function fillHole(x, y)
 		fillSprite.curFrameTime =  -1;
 		fillSprite.gotoAndStop(fillHoleFrame[0]);
 	}
-	mainStage.addChild(fillSprite); 
+	mainStage.addChild(fillSprite);
 	fillHoleObj.push(fillSprite);
-	
+
 	fillHoleTimeStart = recordCount; //for debug
 }
 
@@ -641,31 +641,31 @@ function fillComplete(evt, data)
 	//don't use "divide command", it will cause loss of accuracy while scale changed (ex: tileScale = 0.6...)
 	//var x = this.x / tileWScale | 0; //this : scope default to the dispatcher
 	//var y = this.y / tileHScale | 0;
-	
+
 	var fillObj = data.obj;
-	var x = fillObj.pos.x, y = fillObj.pos.y; //get position 
+	var x = fillObj.pos.x, y = fillObj.pos.y; //get position
 
 	map[x][y].bitmap.set({alpha:1}); //display block
 	fillObj.removeAllEventListeners ("animationend");
 	mainStage.removeChild(fillObj);
 	removeFillHoleObj(fillObj);
-	
+
 	switch(map[x][y].act) {
 	case RUNNER_T : // runner dead
-		//loadingTxt.text = "RUNNER DEAD"; 
+		//loadingTxt.text = "RUNNER DEAD";
 		gameState = GAME_RUNNER_DEAD;
 		runner.sprite.set({alpha:0}); //hidden runner --> dead
 		break;
 	case GUARD_T: //guard dead
 		var id = getGuardId(x,y);
-		if(curAiVersion >= 3 && guard[id].action == ACT_IN_HOLE) removeFromShake(id);	
+		if(curAiVersion >= 3 && guard[id].action == ACT_IN_HOLE) removeFromShake(id);
 		if(guard[id].hasGold > 0) { //guard has gold and not fall into the hole
-			decGold(); 
+			decGold();
 			guard[id].hasGold = 0;
-			guardRemoveRedhat(guard[id]); //9/4/2016	
+			guardRemoveRedhat(guard[id]); //9/4/2016
 		}
 		guardReborn(x,y);
-		if(playMode == PLAY_CLASSIC || playMode == PLAY_AUTO || playMode == PLAY_DEMO) {	
+		if(playMode == PLAY_CLASSIC || playMode == PLAY_AUTO || playMode == PLAY_DEMO) {
 			drawScore(SCORE_GUARD_DEAD);
 		} else {
 			//for modern mode & edit mode
@@ -674,7 +674,7 @@ function fillComplete(evt, data)
 		break;
 	}
 	map[x][y].act = BLOCK_T;
-	
+
 	if(DEBUG_TIME) loadingTxt.text = "FillHoleTime = " + (recordCount - fillHoleTimeStart); //for debug
 }
 
@@ -704,32 +704,32 @@ function initFillHoleVariable()
 function processFillHole()
 {
 	var curIdx, curFillObj;
-	
+
 	for(var i = 0; i < fillHoleObj.length;) {
 		curFillObj = fillHoleObj[i];
 		curIdx = curFillObj.curFrameIdx;
-		
+
 		if(++curFillObj.curFrameTime >= fillHoleTime[curIdx]) {
 			if(++curFillObj.curFrameIdx < fillHoleFrame.length) {
 				//change frame
 				curFillObj.curFrameTime = 0;
 				curFillObj.gotoAndStop(fillHoleFrame[curFillObj.curFrameIdx]);
 			} else {
-				//fill hole complete 
+				//fill hole complete
 				fillComplete(null, {obj: curFillObj});
 				continue;
 			}
-				
+
 		}
 		i++;
 	}
 }
 //====================
-// END NEW fill Hold 
+// END NEW fill Hold
 //====================
 
 //==================================
-// Check guard is alive or not 
+// Check guard is alive or not
 // 2014/10/31
 //==================================
 function guardAlive(x, y)
@@ -738,8 +738,8 @@ function guardAlive(x, y)
 		if( guard[i].pos.x == x && guard[i].pos.y == y) break;
 	}
 	assert( (i < guardCount), "guardAlive() design error !");
-	
+
 	if(guard[i].action != ACT_REBORN) return 1; //alive
-	
+
 	return 0; //reborn
 }

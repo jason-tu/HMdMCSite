@@ -370,7 +370,7 @@ function preloadResource()
 	function preloadComplete()
 	{
 		createHelpObj();
-		getFirstPlayInfo();
+		//getFirstPlayInfo();
 		createjs.Ticker.off("tick", preloadTicker); //remove ticker of cover page
 		waitIdleDemo(400000); //wait user key or show demo level
 	}

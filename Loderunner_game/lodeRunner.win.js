@@ -3,7 +3,7 @@ function loadEndingMusic()
 {
 	if(endingLoadFinish) return;
 	createjs.Sound.alternateExtensions = ["mp3"];
-	createjs.Sound.registerSound({id:"win", src:"sound/ending/win.ogg"});	
+	createjs.Sound.registerSound({id:"win", src:"/Loderunner_game/sound/ending/win.ogg"});
 
 	createjs.Sound.addEventListener("fileload", handleFileLoad);
 	function handleFileLoad(event) {

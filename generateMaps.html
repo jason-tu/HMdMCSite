@@ -490,7 +490,7 @@
                         }
                         textOutput += aux + "<br>";
                         //createNewParagraph(aux, "textOutputTab");
-                        document.getElementById("gameOutputTab").innerHTML = "";
+                        //document.getElementById("gameOutputTab").innerHTML = "";
                         if (gameName == "superMarioBros") {
                             createMarioGame(aux);
                         } else if (gameName == "loderunner") {
@@ -1640,7 +1640,7 @@
                 }
                 function playMario() {
                     // TODO: Mute ALL sounds.
-                    if (music != null && gameName == "superMarioBros") {
+                    if (typeof music != "undefined" && gameName == "superMarioBros") {
                         player.noInput = false;
                         music.overworld.play();
                     }
@@ -1665,7 +1665,7 @@
                         $.getScript( "/loderunner_game/lib/easeljs-0.7.1.min.js" ),
                         $.getScript( "/loderunner_game/flag32Id.js" ),
                         $.getScript( "/loderunner_game/lodeRunner.gameVerName.js" ),
-                        $.getScript( "/loderunner_game/lodeRunner.storage.js" ),
+                        //$.getScript( "/loderunner_game/lodeRunner.storage.js" ),
                         $.getScript( "/loderunner_game/lodeRunner.def.js" ),
 
                         $.Deferred(function( deferred ){
@@ -1684,7 +1684,11 @@
                     }
                     classicData.push(newMapFormat);
                     if (typeof gameState != "undefined") {
-                        gameState = GAME_START;
+                        shiftLevelNum = 1;
+                        if (runnerLife <= 0) {
+                            runnerLife = 5;
+                        }
+                        gameState = GAME_NEXT_LEVEL;
                     }
                 }
             }
@@ -1710,7 +1714,7 @@
                     $.when(
                         $.getScript( "/loderunner_game/lodeRunner.key.js" ),
                         $.getScript( "/loderunner_game/lodeRunner.misc.js" ),
-                        $.getScript( "/loderunner_game/lodeRunner.hiscore.js" ),
+                        //$.getScript( "/loderunner_game/lodeRunner.hiscore.js" ),
                         $.getScript( "/loderunner_game/lodeRunner.info.js" ),
                         $.getScript( "/loderunner_game/lodeRunner.menu.js" ),
                         $.getScript( "/loderunner_game/lodeRunner.runner.js" ),
@@ -1754,7 +1758,7 @@
                 function playLoderunner() {
                     // TODO: Mute ALL sounds.
                     if (gameName == "loderunner") {
-                        gameState = GAME_RUNNING;
+                        gameState = GAME_START;
                     }
                 }
                 mapDataSize = 0;
@@ -2385,7 +2389,7 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-3" style="float: left;">
-                                <p>Controls:<br></p>
+                                <p>Mario Controls:<br></p>
 
 
                                 <ul>
@@ -2402,6 +2406,27 @@
 
 
                                     <li>Run: Left Shift / Z</li>
+                                </ul>
+
+                                <p>Loderunner Controls:<br></p>
+
+                                <ul>
+                                    <li>Up: W / Up Arrow / Space</li>
+
+
+                                    <li>Left: A / Left Arrow</li>
+
+
+                                    <li>Down: S / Down Arrow</li>
+
+
+                                    <li>Right: D / Right Arrow</li>
+
+
+                                    <li>Next Level: Shift + .</li>
+                                    <li>Previous Level: Shift + ,</li>
+                                    <li>Increase lives: Shift + Up Arrow</li>
+                                    <li>God mode: Shift + G</li>
                                 </ul>
 
 
