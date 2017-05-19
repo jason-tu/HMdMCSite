@@ -70,9 +70,9 @@ function init()
 	createStage();
 	setBackground();
 
-	//initAutoDemoRnd(); //init auto demo random levels
-	//initMenuVariable();  //init menu variable
-	//initDemoData(); //get demo data from server
+	initAutoDemoRnd(); //init auto demo random levels
+	initMenuVariable();  //init menu variable
+	initDemoData(); //get demo data from server
 	////genUserLevel(MAX_EDIT_LEVEL); //for debug only
 	//getEditLevelInfo(); //load edit levels
 
@@ -938,8 +938,6 @@ function startAllSpriteObj()
 
 function stopAllSpriteObj()
 {
-	console.log(levelData);
-	console.log(guard + "\n" + "guardCount: " + guardCount);
 	//(1) runner stop
 	if(runner) {
 		runner.paused = runner.sprite.paused;
@@ -1336,6 +1334,43 @@ function mainTick(event)
 	case GAME_FINISH:
 		stopAllSpriteObj();
 		//console.log("Time=" + curTime + ", Tick= " + playTickTimer);
+
+		switch(playMode) {
+		case PLAY_CLASSIC:
+		case PLAY_AUTO:
+		case PLAY_DEMO:
+			soundPlay(soundPass);
+			finalScore = curScore + SCORE_COMPLETE_LEVEL;
+			scoreDuration = ((soundPass.getDuration()) /(SCORE_COUNTER+1))| 0;
+			lastScoreTime = event.time;
+			scoreIncValue = SCORE_COMPLETE_LEVEL/SCORE_COUNTER|0;
+			drawScore(scoreIncValue);
+			gameState = GAME_FINISH_SCORE_COUNT;
+			break;
+		case PLAY_DEMO_ONCE:
+			soundPlay(soundEnding);
+			disableStageClickEvent();
+			document.onkeydown = handleKeyDown;
+			setTimeout(function() {playMode = PLAY_MODERN; startGame(); }, 500);
+			gameState = GAME_WAITING;
+			break;
+		case PLAY_MODERN:
+			soundPlay(soundEnding);
+			var lastHiScore = lastHiScore = updateModernScoreInfo();
+			levelPassDialog(curLevel, curGetGold, curGuardDeadNo, curTime, lastHiScore,
+						  returnBitmap, select1Bitmap, nextBitmap,
+						  mainStage, tileScale, gameFinishCallback);
+			gameState = GAME_WAITING;
+			break;
+		case PLAY_TEST:
+			soundPlay(soundEnding);
+			setTimeout(function() { back2EditMode(1);},500);
+			gameState = GAME_WAITING;
+			break;
+		default:
+			error(arguments.callee.name, "design error, playMode =" + playMode);
+			break;
+		}
 
 		//if(recordMode) recordModeToggle(GAME_FINISH); //for debug only (if enable it must comment below if statement)
 		if(recordMode == RECORD_KEY) {

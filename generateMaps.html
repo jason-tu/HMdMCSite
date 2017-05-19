@@ -490,7 +490,7 @@
                         }
                         textOutput += aux + "<br>";
                         //createNewParagraph(aux, "textOutputTab");
-                        document.getElementById("gameOutputTab").innerHTML = "";
+                        //document.getElementById("gameOutputTab").innerHTML = "";
                         if (gameName == "superMarioBros") {
                             createMarioGame(aux);
                         } else if (gameName == "loderunner") {
@@ -1633,7 +1633,7 @@
 
                 function pauseMario() {
                     // TODO: Mute ALL sounds.
-                    if (typeof music != "undefined") {
+                    if (music != null) {
                         player.noInput = true;
                         music.overworld.pause();
                     }
@@ -1657,7 +1657,7 @@
             mapData += string + "\n";
 
             if (mapDataSize == mapHeight) {
-                if (true) {
+                if (!loadedLoderunner) {
                     $.when(
                         $.getScript( "/loderunner_game/lib/preloadjs-0.6.2.min.js" ),
                         $.getScript( "/loderunner_game/lib/soundjs-0.6.2.min.js" ),
@@ -1686,18 +1686,20 @@
                         }
                         gameState = GAME_NEXT_LEVEL;
                     }
-                    setupLoderunnerPart2();
-
-
+                    mapDataSize = 0;
+                    mapData = "";
                 }
             }
             function setupLoderunnerPart1() {
+                // modify map (lodeRunner.v.classic.js) here
                 var newMapFormat = convertMap(mapData);
                 mapData = "";
                 classicData.push(newMapFormat);
                 if (typeof gameState != "undefined") {
                     gameState = GAME_START;
                 }
+
+                console.log(classicData);
 
                 NO_OF_TILES_X = mapWidth;
                 NO_OF_TILES_Y = mapHeight;
@@ -1716,6 +1718,7 @@
                         $.getScript( "/loderunner_game/lodeRunner.edit.js" ),
                         $.getScript( "/loderunner_game/lodeRunner.preload.js" ),
                         $.getScript( "/loderunner_game/lodeRunner.colorTheme.js" ),
+                        $.getScript( "/loderunner_game/lodeRunner.colorSelector.js" ),
                         $.getScript( "/loderunner_game/lodeRunner.gamepad.js" ),
                         $.getScript( "/loderunner_game/lodeRunner.main.js" ),
                         $.getScript( "/loderunner_game/lodeRunner.win.js" ),
@@ -1732,17 +1735,8 @@
                 canvasLoderunner.style.width = "960";
                 canvasLoderunner.style.height = "400";
                 document.getElementById("gameOutputTab").appendChild(canvasLoderunner);
-                //if (!loadedLoderunner) {
-                    init();
-/*                } else {
-                    if (typeof gameState != "undefined") {
-                        shiftLevelNum = 1;
-                        if (runnerLife <= 0) {
-                            runnerLife = 5;
-                        }
-                        gameState = GAME_NEXT_LEVEL;
-                    }
-                }*/
+                init();
+
                 document.getElementById("options").addEventListener("click", pauseLoderunner, false);
                 document.getElementById("textOutput").addEventListener("click", pauseLoderunner, false);
                 document.getElementById("graphicOutput").addEventListener("click", pauseLoderunner, false);
