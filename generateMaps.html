@@ -1686,14 +1686,14 @@
                         }
                         gameState = GAME_NEXT_LEVEL;
                     }
+                    setupLoderunnerPart2();
+
+
                 }
             }
             function setupLoderunnerPart1() {
                 var newMapFormat = convertMap(mapData);
                 mapData = "";
-                if (classicData.length > 100) {
-                    classicData = new Array();
-                }
                 classicData.push(newMapFormat);
                 if (typeof gameState != "undefined") {
                     gameState = GAME_START;
@@ -1732,8 +1732,17 @@
                 canvasLoderunner.style.width = "960";
                 canvasLoderunner.style.height = "400";
                 document.getElementById("gameOutputTab").appendChild(canvasLoderunner);
-                init();
-
+                //if (!loadedLoderunner) {
+                    init();
+/*                } else {
+                    if (typeof gameState != "undefined") {
+                        shiftLevelNum = 1;
+                        if (runnerLife <= 0) {
+                            runnerLife = 5;
+                        }
+                        gameState = GAME_NEXT_LEVEL;
+                    }
+                }*/
                 document.getElementById("options").addEventListener("click", pauseLoderunner, false);
                 document.getElementById("textOutput").addEventListener("click", pauseLoderunner, false);
                 document.getElementById("graphicOutput").addEventListener("click", pauseLoderunner, false);

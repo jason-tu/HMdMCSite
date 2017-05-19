@@ -16,7 +16,7 @@ function pressShiftKey(code)
 		break;
 	case KEYCODE_UP: //SHIFT-UP, inc runner
 		if(playMode == PLAY_CLASSIC && runnerLife < 10) { //bug fixed: add check playMode, 12/15/2014
-			runnerLife--;
+			runnerLife++;
 			drawLife();
 		}
 		break;

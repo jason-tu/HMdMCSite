@@ -11,6 +11,7 @@ var player = new Mario.Player( [ 0, 0 ] );
 
 function addCanvas() {
     //create the canvas
+    document.getElementById( "gameOutputTab" ).innerHTML = "";
     canvas = document.createElement( "canvas" );
     ctx = canvas.getContext( '2d' );
     updateables = [];

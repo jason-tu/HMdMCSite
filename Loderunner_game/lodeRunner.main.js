@@ -70,9 +70,9 @@ function init()
 	createStage();
 	setBackground();
 
-	initAutoDemoRnd(); //init auto demo random levels
-	initMenuVariable();  //init menu variable
-	initDemoData(); //get demo data from server
+	//initAutoDemoRnd(); //init auto demo random levels
+	//initMenuVariable();  //init menu variable
+	//initDemoData(); //get demo data from server
 	////genUserLevel(MAX_EDIT_LEVEL); //for debug only
 	//getEditLevelInfo(); //load edit levels
 
@@ -938,6 +938,8 @@ function startAllSpriteObj()
 
 function stopAllSpriteObj()
 {
+	console.log(levelData);
+	console.log(guard + "\n" + "guardCount: " + guardCount);
 	//(1) runner stop
 	if(runner) {
 		runner.paused = runner.sprite.paused;
