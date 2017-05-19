@@ -98,7 +98,7 @@ function canvasReSize()
 	else if (screenBorder < 0) screenBorder = 0;
 	screenBorder = (screenBorder * tileScale) | 0;
 
-	canvas = document.getElementById('canvas');
+	canvas = document.getElementById('canvasLoderunner');
 
 	canvas.width = canvasX;
 	canvas.height = canvasY;

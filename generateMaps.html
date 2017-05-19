@@ -491,9 +491,39 @@
                         textOutput += aux + "<br>";
                         //createNewParagraph(aux, "textOutputTab");
                         //document.getElementById("gameOutputTab").innerHTML = "";
+                        var canvasLoderunner = document.getElementById("canvasLoderunner");
+                        var canvasMario = document.getElementById("canvasMario");
                         if (gameName == "superMarioBros") {
+                            // Hide any other games
+                            if (canvasLoderunner != null) {
+                                canvasLoderunner.style.display = "none";
+                            }
+                            if (typeof gameState != "undefined") {
+                                gameState = GAME_PAUSE;
+                            }
+
+                            // Show Mario game
+                            if (canvasMario != null) {
+                                canvasMario.style.display = "block";
+                            }
+                            if (typeof player != "undefined") {
+                                player.noInput = false;
+                            }
                             createMarioGame(aux);
                         } else if (gameName == "loderunner") {
+                            // Hide any other games
+                            if (canvasMario != null) {
+                                canvasMario.style.display = "none";
+                            }
+                            if (typeof music != "undefined") {
+                                player.noInput = true;
+                                music.overworld.pause();
+                            }
+
+                            // Show Loderunner game
+                            if (canvasLoderunner != null) {
+                                canvasLoderunner.style.display = "block";
+                            }
                             createLoderunnerGame(aux);
                         }
 
@@ -1612,7 +1642,9 @@
                     var script = document.createElement("script");
                     script.src = "js/game.js";
                     script.onload = function() {
-                        addCanvas();
+                        if (document.getElementById("canvasMario") == null) {
+                            addCanvas();
+                        }
 
                         Mario.oneone();
 
@@ -1731,7 +1763,7 @@
             }
             function setupLoderunnerPart2() {
                 var canvasLoderunner = document.createElement("canvas");
-                canvasLoderunner.id = "canvas";
+                canvasLoderunner.id = "canvasLoderunner";
                 canvasLoderunner.style.width = "960";
                 canvasLoderunner.style.height = "400";
                 document.getElementById("gameOutputTab").appendChild(canvasLoderunner);
