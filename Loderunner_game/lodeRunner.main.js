@@ -104,7 +104,7 @@ function canvasReSize()
 	canvas.height = canvasY;
 
 	//Set canvas top left position
-	canvas.style.position = "absolute";
+	//canvas.style.position = "absolute";
 
 	tileW = BASE_TILE_X; //tileW and tileH for detection so don't change scale
 	tileH = BASE_TILE_Y;

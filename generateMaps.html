@@ -1461,6 +1461,17 @@
             }
         }
 
+        Element.prototype.remove = function() {
+            this.parentElement.removeChild(this);
+        }
+        NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
+            for(var i = this.length - 1; i >= 0; i--) {
+                if(this[i] && this[i].parentElement) {
+                    this[i].parentElement.removeChild(this[i]);
+                }
+            }
+        }
+
         var mapData = "";
         var mapDataSize = 0;
         var oldMapData = "";
@@ -1475,6 +1486,11 @@
                 oldMapData = JSON.parse(JSON.stringify(mapData))
                 mapData = "";
                 mapDataSize = 0;
+
+                // Clearing canvas
+                if (document.getElementById("canvasMario") != null) {
+                    document.getElementById("canvasMario").remove();
+                }
 
                 var oneone = Mario.oneone = function() {
                     //The things that need to be passed in are basically just dependent on what
@@ -1677,8 +1693,6 @@
                         music.overworld.play();
                     }
                 }
-
-                // Add canvas back?
             }
         }
 
