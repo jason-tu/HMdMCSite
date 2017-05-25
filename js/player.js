@@ -274,21 +274,37 @@
 		}
 
 		if (this.exiting) {
-			this.left = false;
-			this.flagging = false;
-			this.vel[0] = 1.5;
-			if (this.pos[0] >= this.targetPos[0]) {
-				this.sprite.size = [0,0];
-				this.vel = [0,0];
-				window.setTimeout(function() {
-					player.sprite.size = player.power===0 ? [16,16] : [16,32];
-					player.exiting = false;
-					player.noInput = false;
-					level.loader();
-					if (player.power !== 0) player.pos[1] -= 16;
-					music.overworld.currentTime = 0;
-				}, 5000);
+			if (music.overworld.currentTime > 3) {
+				this.left = false;
+				this.flagging = false;
+				this.vel[0] = 1.5;
+				if (this.pos[0] >= this.targetPos[0]) {
+					this.sprite.size = [0,0];
+					this.vel = [0,0];
+					window.setTimeout(function() {
+						if (music.overworld.currentTime > 6) {
+							console.log("Player exiting: " + player.exiting + "\n" + "Time: " + music.overworld.currentTime);
+							console.log("Exiting Start");
+							player.sprite.size = player.power===0 ? [16,16] : [16,32];
+							player.exiting = false;
+						 	player.noInput = false;
+							//level.loader();
+							if (player.power !== 0) player.pos[1] -= 16;
+							music.overworld.currentTime = 0;
+							console.log("Exiting Stop");
+							player.acc[0] = 0;
+							player.sprite.pos = [176, 32];
+							player.sprite.speed = 0;
+							player.power = 0;
+							//player.waiting = 0.5;
+							player.dying = 1;
+
+							player.targetPos = [player.pos[0], player.pos[1]-128];
+							player.vel = [0,5];
+						}
+					}, 5000);
 			}
+		}
 		}
 
 		//approximate acceleration
