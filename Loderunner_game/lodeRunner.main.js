@@ -86,7 +86,6 @@ function canvasReSize()
 		tileScale = scale / 100;
 		canvasX = BASE_SCREEN_X * tileScale;
 		canvasY = BASE_SCREEN_Y * tileScale;
-		//if (canvasX <= screenX1 && canvasY <= screenY1 || tileScale <= MIN_SCALE) break;
 		iconSizeX = BASE_ICON_X * 2 * tileScale;
 		if( (canvasX+iconSizeX) <= screenX1 && canvasY <= screenY1 || tileScale <= MIN_SCALE) break;
 	}
@@ -102,9 +101,6 @@ function canvasReSize()
 
 	canvas.width = canvasX;
 	canvas.height = canvasY;
-
-	//Set canvas top left position
-	//canvas.style.position = "absolute";
 
 	tileW = BASE_TILE_X; //tileW and tileH for detection so don't change scale
 	tileH = BASE_TILE_Y;
