@@ -520,7 +520,7 @@
                                 music.overworld.pause();
                             }
 
-                            // Show Loderunner game
+                            // Show Lode Runner game
                             if (canvasLoderunner != null) {
                                 canvasLoderunner.style.display = "block";
                             }
@@ -2195,7 +2195,7 @@
                                         </option>
 
                                         <option value="loderunner">
-                                            Loderunner
+                                            Lode Runner
                                         </option>
 
                                         <option value="kidIcarus">
@@ -2368,7 +2368,7 @@
                                     <legend class="scheduler-border">Maps</legend>
 
                                     <div class="input-group">
-                                        <span class="input-group-addon">Number of maps to generate</span> <input aria-describedby="height" class="form-control" id="numMaps" type="text" value="1">
+                                        <span class="input-group-addon">Number of maps to generate</span> <input class="form-control" id="numMaps" type="text" value="1">
                                     </div>
                                     <br>
 
@@ -2382,6 +2382,7 @@
 
                                     // Note: There needs to be some sort of delay between these steps for some reason.
                                     function genMultiple() {
+                                        document.getElementById("loader").style.visibility = "visible";
                                         numMaps = document.getElementById("numMaps").value;
                                         numGenerated = 0;
                                         genMultiple1();
@@ -2402,6 +2403,7 @@
                                             } else {
                                                 document.getElementById("gameOutput").style.visibility = "hidden";
                                             }
+                                            document.getElementById("loader").style.visibility = "hidden";
                                         } else {
                                             samplesGenerated();
                                             window.setTimeout(genMultiple1(), 1000);
@@ -2411,6 +2413,7 @@
                                 </fieldset>
                             </div>
                         </div>
+                        <div class="loader" id="loader" style="visibility: hidden;"></div>
                     </div>
                 </div>
 
@@ -2450,7 +2453,9 @@
                                     <li>Run: Left Shift / Z</li>
                                 </ul>
 
-                                <p>Loderunner Controls:<br></p>
+
+                                <p>Lode Runner Controls:<br></p>
+
 
                                 <ul>
                                     <li>Up: W / Up Arrow / Space</li>
@@ -2466,8 +2471,14 @@
 
 
                                     <li>Next Level: Shift + .</li>
+
+
                                     <li>Previous Level: Shift + ,</li>
+
+
                                     <li>Increase lives: Shift + Up Arrow</li>
+
+
                                     <li>God mode: Shift + G</li>
                                 </ul>
 
@@ -2475,7 +2486,7 @@
                                 <p>Mario Game Engine: <a href="https://github.com/reruns/mario">GitHub</a></p>
 
 
-                                <p>Loderunner Game Engine: <a href="https://github.com/SimonHung/LodeRunner_TotalRecall">GitHub</a></p>
+                                <p>Lode Runner Game Engine: <a href="https://github.com/SimonHung/LodeRunner_TotalRecall">GitHub</a></p>
                             </div>
 
 
