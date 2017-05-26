@@ -1058,6 +1058,7 @@
                     ready = false;
                     alert("Number of Row Splits exceeds the number of provided map's rows!\nActual Row Splits: " + rowSplits + ".\nMap's rows: " + count + ".");
                     document.getElementById("rowSplits").value = count;
+                    document.getElementById("loader").style.visibility = "hidden";
                 } else {
                     count = 0;
                 }
@@ -1902,7 +1903,10 @@
                     MdMCExperiments();
                 } else {
                     alert("Please choose Training Maps!");
+                    document.getElementById("loader").style.visibility = "hidden";
                 }
+            } else {
+                document.getElementById("loader").style.visibility = "hidden";
             }
         }
 
