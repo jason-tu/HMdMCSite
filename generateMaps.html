@@ -1647,7 +1647,6 @@
 
                     // Flagpole. 7 is arbitrary.
                     level.putFlagpole(lines[lines.length - 2].length - 7);
-                    //level.putFlagpole(15);
 
 
                     // music.overworld.currentTime = 0;
@@ -2010,22 +2009,16 @@
 
 
             if (selectedValue == "loderunner") {
-                //$('#textOutputTab').empty();
-                //$('#graphicOutputTab').empty();
                 document.getElementById("rowSplits").value = 22;
                 document.getElementById("height").value = 22;
                 document.getElementById("width").value = 32;
                 document.getElementById("networkStructure").value = 3;
             } else if (selectedValue == "superMarioBros") {
-                //$('#textOutputTab').empty();
-                //$('#graphicOutputTab').empty();
                 document.getElementById("rowSplits").value = 12;
                 document.getElementById("height").value = 12;
                 document.getElementById("width").value = 210;
                 document.getElementById("networkStructure").value = 3;
             } else if (selectedValue == "kidIcarus") {
-                //$('#textOutputTab').empty();
-                //$('#graphicOutputTab').empty();
                 document.getElementById("rowSplits").value = 159;
                 document.getElementById("height").value = 159;
                 document.getElementById("width").value = 16;
@@ -2189,9 +2182,9 @@
 
             <div class="tab-content">
                 <div class="tab-pane fade in active" id="home" style="float: left;">
-                    <div class="container">
+                    <div class="container-fluid">
                         <div class="row">
-                            <div class="col-3">
+                            <div class="col-md-3">
                                 <fieldset class="scheduler-border" id="chooseAGame">
                                     <legend class="scheduler-border">Choose a Game</legend> <select class="form-control" id="formChooseAGame" onchange="gameChanged(this.value)">
                                         <option value="superMarioBros">
@@ -2214,7 +2207,7 @@
                             </div>
 
 
-                            <div class="col-3">
+                            <div class="col-md-3">
                                 <fieldset class="scheduler-border" id="trainingMaps">
                                     <legend class="scheduler-border">Training Maps</legend>
 
@@ -2231,7 +2224,7 @@
                             </div>
 
 
-                            <div class="col-3">
+                            <div class="col-md-2">
                                 <fieldset class="scheduler-border" id="mapSize">
                                     <legend class="scheduler-border">Map Size</legend>
 
@@ -2248,7 +2241,7 @@
                             </div>
 
 
-                            <div class="col-3">
+                            <div class="col-md-4">
                                 <fieldset class="scheduler-border" id="chooseAMethod">
                                     <legend class="scheduler-border">Choose a Method</legend>
 
@@ -2271,103 +2264,114 @@
 
 
                         <div class="row">
-                            <div class="col-12">
+                            <div class="col-md-12">
                                 <fieldset class="scheduler-border" id="experimentalSetUps">
                                     <legend class="scheduler-border">Experimental Set-Ups</legend>
+                                    <div class="row">
+                                        <div class="col-md-7">
+                                            <div id="experimentalOptions">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">Row Splits&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <input aria-describedby="rowSplits" class="form-control" id="rowSplits" type="text" value="12">
+                                                </div>
+                                                <br>
 
-                                    <div id="experimentalOptions">
-                                        <div class="input-group">
-                                            <span class="input-group-addon">Row Splits&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <input aria-describedby="rowSplits" class="form-control" id="rowSplits" type="text" value="12">
+
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">Lookahead&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <input aria-describedby="lookahead" class="form-control" disabled="true" id="lookahead" type="text" value="0">
+                                                </div>
+                                                <br>
+
+
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">Network Structure&nbsp;&nbsp;</span> <input aria-describedby="networkStructure" class="form-control" id="networkStructure" type="text" value="3">
+                                                </div>
+                                            </div>
+
+
+                                            <div id="experimentalOptions">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">Distance Metric&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <input aria-describedby="distanceMetric" class="form-control" disabled="true" id="distanceMetric" type="text">
+                                                </div>
+                                                <br>
+
+
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">Tile Size&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <input aria-describedby="tileSize" class="form-control" disabled="true" id="tileSize" type="text">
+                                                </div>
+                                                <br>
+
+
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">Number of Clusters</span> <input aria-describedby="numberOfClusters" class="form-control" disabled="true" id="numberOfClusters" type="text">
+                                                </div>
+                                            </div>
                                         </div>
-                                        <br>
 
+                                        <div class="col-md-5">
+                                            <fieldset class="scheduler-border" id="experimentalFieldset">
+                                                <legend class="scheduler-border">Converting to High-Level Maps</legend>
+                                                <div class="container-fluid">
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <div id="highLevelConversion">
+                                                                <div class="radio">
+                                                                    <label><input checked disabled="true" id="manualRadio" name="optradioExperimental" onchange="changeHighLevelMapsConversion()" type="radio" value="manual">Manual</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <div id="highLevelConversion2">
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon">Parameters</span> <input aria-describedby="Parameters" class="form-control" disabled="true" id="parameters" type="text">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <div id="highLevelConversion">
+                                                                <div class="radio">
+                                                                    <label><input disabled="true" id="clusteringBasedRadio" name="optradioExperimental" onchange="changeHighLevelMapsConversion()" type="radio" value="clusteringBased">Clustering-based</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <div id="highLevelConversion2">
+                                                                <select class="form-control" disabled="true" id="formHighLevelConversion">
+                                                                    <option value="direct">
+                                                                        Direct
+                                                                    </option>
 
-                                        <div class="input-group">
-                                            <span class="input-group-addon">Lookahead&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <input aria-describedby="lookahead" class="form-control" disabled="true" id="lookahead" type="text" value="0">
-                                        </div>
-                                        <br>
+                                                                    <option value="histogram">
+                                                                        Histogram
+                                                                    </option>
 
+                                                                    <option value="markov">
+                                                                        Markov
+                                                                    </option>
 
-                                        <div class="input-group">
-                                            <span class="input-group-addon">Network Structure&nbsp;&nbsp;</span> <input aria-describedby="networkStructure" class="form-control" id="networkStructure" type="text" value="3">
+                                                                    <option value="shape">
+                                                                        Shape
+                                                                    </option>
+
+                                                                    <option value="weighted">
+                                                                        Weighted
+                                                                    </option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
                                         </div>
                                     </div>
-
-
-                                    <div id="experimentalOptions">
-                                        <div class="input-group">
-                                            <span class="input-group-addon">Distance Metric&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <input aria-describedby="distanceMetric" class="form-control" disabled="true" id="distanceMetric" type="text">
-                                        </div>
-                                        <br>
-
-
-                                        <div class="input-group">
-                                            <span class="input-group-addon">Tile Size&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <input aria-describedby="tileSize" class="form-control" disabled="true" id="tileSize" type="text">
-                                        </div>
-                                        <br>
-
-
-                                        <div class="input-group">
-                                            <span class="input-group-addon">Number of Clusters</span> <input aria-describedby="numberOfClusters" class="form-control" disabled="true" id="numberOfClusters" type="text">
-                                        </div>
-                                    </div>
-
-
-                                    <fieldset class="scheduler-border" id="experimentalFieldset">
-                                        <legend class="scheduler-border">Converting to High-Level Maps</legend>
-
-                                        <div id="highLevelConversion">
-                                            <div class="radio">
-                                                <label><input checked disabled="true" id="manualRadio" name="optradioExperimental" onchange="changeHighLevelMapsConversion()" type="radio" value="manual">Manual</label>
-                                            </div>
-                                        </div>
-
-
-                                        <div id="highLevelConversion2">
-                                            <div class="input-group">
-                                                <span class="input-group-addon">Parameters</span> <input aria-describedby="Parameters" class="form-control" disabled="true" id="parameters" type="text">
-                                            </div>
-                                        </div>
-
-
-                                        <div id="highLevelConversion">
-                                            <div class="radio">
-                                                <label><input disabled="true" id="clusteringBasedRadio" name="optradioExperimental" onchange="changeHighLevelMapsConversion()" type="radio" value="clusteringBased">Clustering-based</label>
-                                            </div>
-                                        </div>
-
-
-                                        <div id="highLevelConversion2">
-                                            <select class="form-control" disabled="true" id="formHighLevelConversion">
-                                                <option value="direct">
-                                                    Direct
-                                                </option>
-
-                                                <option value="histogram">
-                                                    Histogram
-                                                </option>
-
-                                                <option value="markov">
-                                                    Markov
-                                                </option>
-
-                                                <option value="shape">
-                                                    Shape
-                                                </option>
-
-                                                <option value="weighted">
-                                                    Weighted
-                                                </option>
-                                            </select>
-                                        </div>
-                                    </fieldset>
                                 </fieldset>
                             </div>
                         </div>
 
 
                         <div class="row">
-                            <div class="col-12">
+                            <div class="col-md-12">
                                 <fieldset class="scheduler-border" id="generateMaps">
                                     <legend class="scheduler-border">Maps</legend>
 
@@ -2437,7 +2441,7 @@
                 <div class="tab-pane fade" id="menu3">
                     <div class="container-fluid">
                         <div class="row">
-                            <div class="col-3" style="float: left;">
+                            <div class="col-md-3" style="float: left;">
                                 <p>Mario Controls:<br></p>
 
 
@@ -2494,7 +2498,7 @@
                             </div>
 
 
-                            <div class="col-9" style="float: center;">
+                            <div class="col-md-9" style="float: center;">
                                 <div id="gameOutputTab">
                                 </div>
                             </div>
